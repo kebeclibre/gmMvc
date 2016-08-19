@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous"></link>
+<link rel="stylesheet" href="resources/gm.css"></link>
+
+</head>
+<body>
+
+
+	<div class="container">
+		<!-- 	Start Include -->
+		<div class="row ">
+			<header class="col-md-12">
+				<div class="navbar-wrapper">
+					<div class="container-fluid">
+						<nav class="navbar navbar-fixed-top">
+							<div class="container">
+								<div class="navbar-header">
+									<button type="button" class="navbar-toggle collapsed"
+										data-toggle="collapse" data-target="#navbar"
+										aria-expanded="false" aria-controls="navbar">
+										<span class="sr-only">Toggle navigation</span> <span
+											class="icon-bar"></span> <span class="icon-bar"></span> <span
+											class="icon-bar"></span>
+									</button>
+									<a class="navbar-brand" href="#">Going Mobile</a>
+								</div>
+								<div id="navbar" class="navbar-collapse collapse">
+									<ul class="nav navbar-nav">
+										<li class="active"><a href="#" class="">Partenaires</a></li>
+
+										<li><a href="#">Offres</a></li>
+
+
+									</ul>
+									<ul class="nav navbar-nav pull-right">
+
+										<li><a href="#">A propos de nous</a></li>
+
+										<li class=" dropdown"><a href="#"
+											class="dropdown-toggle active" data-toggle="dropdown"
+											role="button" aria-haspopup="true" aria-expanded="false">Bonjour
+												Machin<span class="caret"></span>
+										</a>
+											<ul class="dropdown-menu">
+												<li><a href="#">Change Password</a></li>
+												<li><a href="#">My Profile</a></li>
+											</ul></li>
+										<li class=""><a href="#">Logout</a></li>
+									</ul>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+
+			</header>
+		</div>
+		<!-- 		End Include -->
+
+
+
+		<div class="row">
+			<div class="col-md-12" id="middleRow">
+				<div class="jumbotron">
+					<div class="container">
+					<h2>"I'm goin' home</h2>
+					<h2>And when I wanna go home</h2>
+					<h2>I'm goin' mobile"</h2>
+					<h3>- Pete Townshend, 1971</h3>
+					<p th:text="${serverTime}"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<footer class="row">
+			<div class="col-md-12">
+				<p>Contact</p>
+				<p>Se connecter comme partenaire</p>
+				<p>Jobs</p>
+			</div>
+		</footer>
+
+
+	</div>
+
+
+
+
+
+
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+</body>
+</html>
