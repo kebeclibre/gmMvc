@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import lcs.prs.goingmobile.entities.Client;
+
 /**
  * Handles requests for the application home page.
  */
@@ -32,8 +34,10 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
+		model.addAttribute("client",new Client());
+		model.addAttribute("pageTitle", "GoingMobile: Traversez la ville naturellement.");
 		
-		return "template";
+		return "home";
 	}
 	
 }

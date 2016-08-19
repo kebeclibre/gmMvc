@@ -124,6 +124,18 @@
 			<version>2.1.4.RELEASE</version>
 		</dependency>
 
+		<dependency>
+			<groupId>lcs.prs.goingmobile</groupId>
+			<artifactId>gm</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+
 
 	</dependencies>
 	<build>

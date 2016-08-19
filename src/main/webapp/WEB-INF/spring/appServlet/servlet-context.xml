@@ -15,7 +15,7 @@
 
 
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+	<!-- Handles HTTP GET requests fo"S:/David/Hibou/Livrable.Laboratoire.JavaEE.2016/Compléments Spring4MVC/MonProjetSpring4MVC-6-Thymeleaf-Layout-Hierarchical/src/main/webapp/WEB-INF/views/layout.html"r /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
@@ -37,8 +37,16 @@
 		<beans:property name="templateMode" value="HTML5" />
 	</beans:bean>
 
+
+	<beans:bean class="nz.net.ultraq.thymeleaf.LayoutDialect"
+		id="layoutDialect" />
+
+
+
+
 	<beans:bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
 		<beans:property name="templateResolver" ref="templateResolver" />
+		<beans:property name="additionalDialects" ref="layoutDialect" />
 	</beans:bean>
 
 	<beans:bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
