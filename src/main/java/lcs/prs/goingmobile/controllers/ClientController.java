@@ -27,6 +27,7 @@ public class ClientController {
 		return "journeys";
 	}
 	
+	@RequestMapping(value="/registerUser", method = RequestMethod.POST)
 	public String registerUser(@ModelAttribute Client client,Model model) {
 		
 		

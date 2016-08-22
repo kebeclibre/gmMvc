@@ -6,4 +6,8 @@ public interface UserInterface {
 	void insertEmail(String email);
 	void insertMainMetaData(String meta1);
 	void insertSecondMetaData(String meta2);
+	String collectMainMetaData();
+	String collectSecondMetaData();
+	String collectEmail();
+	
 }

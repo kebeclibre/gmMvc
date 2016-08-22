@@ -281,4 +281,19 @@ public class Client implements java.io.Serializable, UserInterface {
 		
 	}
 
+	@Override
+	public String collectMainMetaData() {
+		return getLastName();
+	}
+
+	@Override
+	public String collectSecondMetaData() {
+		return getFirstName();
+	}
+
+	@Override
+	public String collectEmail() {
+		return getEmail();
+	}
+
 }

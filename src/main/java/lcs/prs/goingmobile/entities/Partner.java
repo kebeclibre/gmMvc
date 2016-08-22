@@ -234,4 +234,19 @@ public class Partner implements java.io.Serializable, UserInterface {
 		
 	}
 
+	@Override
+	public String collectMainMetaData() {
+		return getOrganizationName();
+	}
+
+	@Override
+	public String collectSecondMetaData() {
+		return getOrganizationDescription();
+	}
+
+	@Override
+	public String collectEmail() {
+		return getEmail();
+	}
+
 }
