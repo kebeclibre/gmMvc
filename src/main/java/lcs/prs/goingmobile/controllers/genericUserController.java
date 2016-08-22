@@ -9,12 +9,12 @@ import lcs.prs.goingmobile.entities.Client;
 
 @Controller
 @RequestMapping("/generic")
-public class genericUserController {
+public class GenericUserController {
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String displayForm(Model model) {
 		
-		model.addAttribute("client", new Client());
+		model.addAttribute("genericClient", new Client());
 		
 		return "signUpForm";
 	}

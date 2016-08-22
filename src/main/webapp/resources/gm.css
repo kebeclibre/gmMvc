@@ -11,10 +11,15 @@ header {
 }
 
 #middleRow {
-	margin-top: 50px;
+	margin-top: 45px;
 }
 
 #filler {
 	height: 500px;
+}
+
+.userToolBar {
+	margin-top: 45px;
+	margin-bottom:-35px;
 }
 

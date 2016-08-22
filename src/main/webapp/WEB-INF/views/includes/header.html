@@ -1,5 +1,5 @@
 <head th:fragment="headBalise">
-<meta charset="ISO-8859-1"></meta>
+<meta charset="UTF-8"></meta>
 <title th:text="${pageTitle}"></title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
@@ -40,9 +40,9 @@
 							<ul class="nav navbar-nav pull-right">
 
 								<li><a href="#">A propos de nous</a></li>
-								<li th:switch="${client.getUsername()}">
+								<li th:switch="${user}">
 									<a th:case="null" th:href="@{/generic/signup}">S'inscrire</a> 
-									<a th:case="*" th:text="${'Bonjour '+client.getUsername()}" th:href="@{/user/profile}"></a>
+									<a th:case="*" th:text="${'Bonjour '+user.getUsername()}" th:href="@{/user/profile}"></a>
 								</li>
 								<!-- 										<li class=" dropdown"><a href="#" -->
 								<!-- 											class="dropdown-toggle active" data-toggle="dropdown" -->
@@ -52,7 +52,7 @@
 								<!-- 												<li><a href="#">Change Password</a></li> -->
 								<!-- 												<li><a href="#">My Profile</a></li> -->
 								<!-- 											</ul></li> -->
-								<li class=""><a href="#">Logout</a></li>
+								<li class=""><a th:href="@{/generic/logout}">Logout</a></li>
 							</ul>
 						</div>
 					</div>
@@ -61,5 +61,7 @@
 		</div>
 
 	</header>
+	
 </div>
+
 <!-- 		End Include -->

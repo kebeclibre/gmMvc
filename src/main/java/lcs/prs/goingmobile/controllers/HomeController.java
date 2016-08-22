@@ -19,6 +19,7 @@ import lcs.prs.goingmobile.entities.Client;
 @Controller
 public class HomeController {
 	
+	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**
@@ -34,8 +35,10 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		model.addAttribute("client",new Client());
+		model.addAttribute("genericClient",new Client());
+		model.addAttribute("user",new Client());
 		model.addAttribute("pageTitle", "GoingMobile: Traversez la ville naturellement.");
+		
 		
 		return "home";
 	}

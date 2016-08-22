@@ -36,7 +36,7 @@
 	<!-- <beans:property name="suffix" value=".jsp" /> -->
 	<!-- </beans:bean> -->
 
-	<context:component-scan base-package="lcs.prs.goingmobile.controllers" />
+	<context:component-scan base-package="lcs.prs.goingmobile" />
 	
 	
 	<beans:bean id="templateResolver"
@@ -65,7 +65,7 @@
 
 	<!-- SPRING DATA : DB PARAM -->
 	
-	<jpa:repositories base-package="lcs.prs.goingmobile.dao"></jpa:repositories>
+	<jpa:repositories base-package="lcs.prs.goingmobile.repositories"></jpa:repositories>
 
 	<beans:bean id="mainDataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -92,5 +92,10 @@
 		<beans:property name="generateDdl" value="true" />
 		<beans:property name="database" value="MYSQL" />
 	</beans:bean>
+	
+	
+<!-- 	Injection of Specific repositories + services -->
+	
+	
 
 </beans:beans>
