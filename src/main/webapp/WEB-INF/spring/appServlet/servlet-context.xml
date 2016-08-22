@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/data/jpa
+		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
@@ -15,9 +21,12 @@
 
 
 
-	<!-- Handles HTTP GET requests fo"S:/David/Hibou/Livrable.Laboratoire.JavaEE.2016/Compléments Spring4MVC/MonProjetSpring4MVC-6-Thymeleaf-Layout-Hierarchical/src/main/webapp/WEB-INF/views/layout.html"r /resources/** by efficiently serving 
-		up static resources in the ${webappRoot}/resources directory -->
+	<!-- Handles HTTP GET requests fo"S:/David/Hibou/Livrable.Laboratoire.JavaEE.2016/Compléments 
+		Spring4MVC/MonProjetSpring4MVC-6-Thymeleaf-Layout-Hierarchical/src/main/webapp/WEB-INF/views/layout.html"r 
+		/resources/** by efficiently serving up static resources in the ${webappRoot}/resources 
+		directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<context:property-placeholder location="/WEB-INF/spring/appServlet/jdbc.properties" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -27,9 +36,9 @@
 	<!-- <beans:property name="suffix" value=".jsp" /> -->
 	<!-- </beans:bean> -->
 
-	<context:component-scan base-package="lcs.prs.goingmobile" />
-
-
+	<context:component-scan base-package="lcs.prs.goingmobile.controllers" />
+	
+	
 	<beans:bean id="templateResolver"
 		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
@@ -54,5 +63,34 @@
 	</beans:bean>
 
 
+	<!-- SPRING DATA : DB PARAM -->
+	
+	<jpa:repositories base-package="lcs.prs.goingmobile.dao"></jpa:repositories>
+
+	<beans:bean id="mainDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver"></beans:property>
+		<beans:property name="url" value="${jdbc.url}"></beans:property>
+		<beans:property name="username" value="${jdbc.username}"></beans:property>
+		<beans:property name="password" value="${jdbc.password}"></beans:property>
+	</beans:bean>
+	
+	<beans:bean class="org.springframework.orm.jpa.JpaTransactionManager"
+		id="transactionManager">		
+	</beans:bean>
+
+	<beans:bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<beans:property name="dataSource" ref="mainDataSource"></beans:property>
+		<beans:property name="jpaVendorAdapter" ref="jpaVendorAdapter"></beans:property>
+		<beans:property name="packagesToScan" value="lcs.prs.goingmobile.entities"></beans:property>
+	</beans:bean>
+	
+		<beans:bean id="jpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<beans:property name="showSql" value="true" />
+		<beans:property name="generateDdl" value="true" />
+		<beans:property name="database" value="MYSQL" />
+	</beans:bean>
 
 </beans:beans>

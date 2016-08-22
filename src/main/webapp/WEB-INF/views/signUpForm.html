@@ -1,0 +1,36 @@
+
+<div layout:decorator="masterPages/masterIncludes"
+	layout:fragment="content">
+	<div class="col-md-12">
+		<div class="jumbotron">
+			<div class="container">
+			
+						<h3>Inscrivez Vous</h3>
+						<form th:action="@{/generic/registerUser}"  th:object="${client}"
+							method="post">
+
+							<p>
+								Utilisateur <input type="text" th:field="*{username}"></input>
+							</p>
+							<p>
+								Password<input type="password" th:field="*{password}"></input>
+							</p>
+														<p>
+								Prénom <input type="text" th:field="*{insertSecondMetaData}"></input>
+							</p>
+														<p>
+								Nom <input type="text" th:field="*{insertMainMetaData}"></input>
+							</p>
+														<p>
+								E-mail <input type="text" th:field="*{insertEmail}"></input>
+
+							<p>
+								<input type="submit" value="Valider" ></input>
+							</p>
+						</form>
+
+					</div>
+				</div>
+
+			</div>
+		</div>

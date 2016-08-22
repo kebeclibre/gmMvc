@@ -1,4 +1,4 @@
-package lcs.prs.goingmobile;
+package lcs.prs.goingmobile.controllers;
 
 import java.text.DateFormat;
 import java.util.Date;
