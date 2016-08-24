@@ -6,28 +6,53 @@
 			<div class="container">
 
 				<h3>Inscrivez Vous</h3>
-				<form th:action="@{/user/registerUser}" th:object="${genericClient}"
+				<form th:action="@{/generic/registerUser}" th:object="${genericClient}"
 					method="post">
+					<table>
+						<tr>
+							<td>Utilisateur</td>
+							<td><input type="text" th:field="*{username}"></input></td>
+							<td th:if="${#fields.hasErrors('username')}"
+								th:errors="*{username}" class="text-danger">Format invalide</td>
+						</tr>
 
-					<p>
-						Utilisateur <input type="text" th:field="*{username}"></input>
-					</p>
-					<p>
-						Password <input type="password" th:field="*{password}"></input>
-					</p>
-					<p>
-						Prénom <input type="text" th:field="*{firstName}"></input>
-					</p>
-					<p>
-						Nom <input type="text" th:field="*{lastName}"></input>
-					</p>
-					<p>
-						E-mail <input type="text" th:field="*{email}"></input>
-					</p>
+						<tr>
+							<td>Password</td>
+							<td><input type="password" th:field="*{password}"></input></td>
 
-					<p>
-						<input type="submit" value="Valider"></input>
-					</p>
+							<td th:if="${#fields.hasErrors('password')}"
+								th:errors="*{password}" class="text-danger">Format invalide</td>
+
+						</tr>
+						<tr>
+							<td>Prénom</td>
+							<td><input type="text" th:field="*{firstName}"></input></td>
+
+							<td th:if="${#fields.hasErrors('firstName')}"
+								th:errors="*{firstName}" class="text-danger">Format
+								invalide</td>
+						</tr>
+
+						<tr>
+							<td>Nom</td>
+							<td><input type="text" th:field="*{lastName}"></input></td>
+							<td th:if="${#fields.hasErrors('lastName')}"
+								th:errors="*{lastName}" class="text-danger">Format invalide</td>
+						</tr>
+
+						<tr>
+							<td>E-mail</td>
+							<td><input type="text" th:field="*{email}"></input></td>
+							<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+								class="text-danger">Format invalide</td>
+						</tr>
+
+
+						<tr>
+							<td><input type="submit" value="Valider"></input></td>
+						</tr>
+					</table>
+
 				</form>
 
 			</div>

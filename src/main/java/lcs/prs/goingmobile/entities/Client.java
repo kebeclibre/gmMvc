@@ -1,19 +1,24 @@
 package lcs.prs.goingmobile.entities;
 // Generated Aug 19, 2016 11:55:51 AM by Hibernate Tools 5.1.0.Beta1
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import lcs.prs.goingmobile.interfaces.UserInterface;
 
@@ -25,10 +30,15 @@ import lcs.prs.goingmobile.interfaces.UserInterface;
 public class Client implements java.io.Serializable, UserInterface {
 
 	private Integer id;
+	@NotEmpty(message="Ce champ est obligatoire")
 	private String username;
+	@NotEmpty(message="Ce champ est obligatoire") @Email(message="email invalide")
 	private String email;
+	@NotEmpty(message="Ce champ est obligatoire")
 	private String firstName;
+	@NotEmpty(message="Ce champ est obligatoire")
 	private String lastName;
+	@NotEmpty(message="Ce champ est obligatoire")
 	private String password;
 	private boolean isActive;
 	private Date registrationDate;

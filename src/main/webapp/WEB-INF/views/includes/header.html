@@ -40,19 +40,24 @@
 							<ul class="nav navbar-nav pull-right">
 
 								<li><a href="#">A propos de nous</a></li>
+								
+<!-- 								<ul th:switch="${user}"> -->
+<!-- 									<li th:case="null"> -->
+<!-- 											<a th:href="@{/generic/signup}">S'inscrire</a> -->
+<!-- 									</li> -->
+<!-- 									</ul> -->
+<!-- 									<ul th:case="*"> -->
+<!-- 										<li ><a th:text="${'Bonjour '+user.getUsername()}" th:href="@{/user/profile}"></a></li> -->
+<!-- 										<li class=""><a th:href="@{/generic/logout}">Logout</a></li> -->
+																
+<!-- 								</ul> -->
+								
 								<li th:switch="${user}">
 									<a th:case="null" th:href="@{/generic/signup}">S'inscrire</a> 
 									<a th:case="*" th:text="${'Bonjour '+user.getUsername()}" th:href="@{/user/profile}"></a>
 								</li>
-								<!-- 										<li class=" dropdown"><a href="#" -->
-								<!-- 											class="dropdown-toggle active" data-toggle="dropdown" -->
-								<!-- 											role="button" aria-haspopup="true" aria-expanded="false" th:text="${'Bonjour ' + client.getUsername() ? : client.getUsername()}"> -->
-								<!-- 										</a> -->
-								<!-- 											<ul class="dropdown-menu"> -->
-								<!-- 												<li><a href="#">Change Password</a></li> -->
-								<!-- 												<li><a href="#">My Profile</a></li> -->
-								<!-- 											</ul></li> -->
-								<li class=""><a th:href="@{/generic/logout}">Logout</a></li>
+
+								<li th:if="${user != null}" ><a th:href="@{/logout}">Logout</a></li>
 							</ul>
 						</div>
 					</div>
