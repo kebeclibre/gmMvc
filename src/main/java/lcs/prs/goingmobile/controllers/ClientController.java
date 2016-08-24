@@ -1,15 +1,20 @@
 package lcs.prs.goingmobile.controllers;
 
+import java.security.Principal;
 import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import lcs.prs.goingmobile.entities.Client;
@@ -35,8 +40,12 @@ public class ClientController {
 
 	
 	@RequestMapping(value = "/journeys", method = RequestMethod.POST)
-	public String userLogin(@ModelAttribute Client genericClient, Locale locale, Model model) {
-
+	public @ResponseBody String userLogin(Locale locale, Model model) {
+		
+		
+		Client genericClient = new Client();
+		genericClient.setUsername(getPrincipal());
+		
 		model.addAttribute("user", genericClient);
 		model.addAttribute("pageTitle", "GoingMobile : Regardez vos trajets");
 
@@ -59,6 +68,18 @@ public class ClientController {
 	// model.addAttribute("client",client);
 	// return "journeys";
 	// }
+	
+	private String getPrincipal(){
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+ 
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails)principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        return userName;
+    }
 	
 
 }
