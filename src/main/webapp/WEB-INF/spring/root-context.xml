@@ -19,7 +19,7 @@
 				/>
 	</security:http>
 
-	<security:authentication-manager>
+	<security:authentication-manager alias="authenticationManager" erase-credentials="false">
 		<security:authentication-provider>
 			<security:user-service>
 				<security:user name="lucas" password="lucas"
