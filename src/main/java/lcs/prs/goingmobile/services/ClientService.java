@@ -32,6 +32,7 @@ public class ClientService implements IServiceRepo<Client, Integer> {
 		element.setGmPointsTotal(0);
 		element.setIsActive(true);
 		repo.save(element);
+		repo.insertRole(element.getUsername(), "CLIENT");
 		
 	}
 

@@ -60,6 +60,8 @@ public class ClientController {
 	
 	@RequestMapping("/profile")
 	public String showClientProfile(Model model) {
+		
+		model.addAttribute("pageTitle", "GoingMobile : Gérez votre profil");
 		return "profile";
 	}
 	

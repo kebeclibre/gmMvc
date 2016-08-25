@@ -3,6 +3,12 @@ package lcs.prs.goingmobile.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +27,8 @@ public class GenericUserController {
 	
 	@Autowired
 	private IServiceRepo<Client, Integer> serviceClient;
+	@Autowired
+	private AuthenticationManager authenticationManager;
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String displayForm(Model model) {
@@ -32,20 +40,17 @@ public class GenericUserController {
 	
 	
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
-	public String registerUser(@Valid @ModelAttribute("genericClient") Client client, @ModelAttribute("user") Client user, BindingResult bindingResult, Model model) {  //MODEL BINDIG
+	public String registerUser(@Valid @ModelAttribute("genericClient") Client client, BindingResult bindingResult, Model model) {  //MODEL BINDIG
 		if (bindingResult.hasErrors()) {
 			System.out.println("======================= IL Y A EU UNE ERREUR DE VALIDATION ======");
 			return "signUpForm";
 		} else {
 			serviceClient.save(client);
-			model.addAttribute("user", client);
-			return "journeys";
+			model.addAttribute("genericClient",client);
+			model.addAttribute("saveSucceed",true);
+			model.addAttribute("pageTitle", "GoingMobile : Votre compte a été créé");
+			return "home";
 		}
-	}
-	
-	@ModelAttribute("user")
-	public Client getClient () {
-		return new Client();
 	}
 
 	

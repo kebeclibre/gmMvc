@@ -19,12 +19,13 @@
 					</div>
 						
 					<div th:if="${session.user == null}">
+						<div th:if="${saveSucceed}"><p class="creationSuccess">Votre compte a été créé. Vous pouvez vous connecter</p></div>
 						<h3>Connectez-Vous</h3>
-						
+							
 							<form th:action="@{/j_spring_security_check}" method="post">
 
-								<p>
-									Utilisateur ou E-mail<input type="text" name="username"></input>
+								<p >
+									Utilisateur ou E-mail<input type="text" name="username"  th:value="${genericClient}?${genericClient.getUsername()}:''"></input>
 								</p>
 								<p>
 									Password<input type="password" name="password"></input>

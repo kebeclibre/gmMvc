@@ -55,7 +55,6 @@
 				 authorities-by-username-query="select username, role from roles where username = ?"
 				role-prefix="ROLE_" />
 		</security:authentication-provider>
-
 	</security:authentication-manager>
 
 </beans:beans>
