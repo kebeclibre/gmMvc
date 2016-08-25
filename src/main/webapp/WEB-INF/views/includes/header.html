@@ -52,12 +52,12 @@
 																
 <!-- 								</ul> -->
 								
-								<li th:switch="${user}">
+								<li th:switch="${session.user}">
 									<a th:case="null" th:href="@{/generic/signup}">S'inscrire</a> 
-									<a th:case="*" th:text="${'Bonjour '+user.getUsername()}" th:href="@{/user/profile}"></a>
+									<a th:case="*" th:text="${'Bonjour '+session.user.getUsername()}" th:href="@{/user/profile}"></a>
 								</li>
 
-								<li th:if="${user != null}" ><a th:href="@{/logout}">Logout</a></li>
+								<li th:if="${session.user != null}" ><a th:href="@{/logout}">Logout</a></li>
 							</ul>
 						</div>
 					</div>

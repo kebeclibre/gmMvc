@@ -9,12 +9,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import lcs.prs.goingmobile.entities.Client;
 import lcs.prs.goingmobile.services.IServiceRepo;
 
 @Controller
 @RequestMapping("/generic")
+@SessionAttributes({"user"})
 public class GenericUserController {
 	
 	@Autowired
@@ -27,7 +29,8 @@ public class GenericUserController {
 		
 		return "signUpForm";
 	}
-
+	
+	
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public String registerUser(@Valid @ModelAttribute("genericClient") Client client, BindingResult bindingResult, Model model) {  //MODEL BINDIG
 		if (bindingResult.hasErrors()) {
@@ -35,7 +38,7 @@ public class GenericUserController {
 			return "signUpForm";
 		} else {
 			serviceClient.save(client);
-			model.addAttribute("client", client);
+			model.addAttribute("user", client);
 			return "journeys";
 		}
 	}

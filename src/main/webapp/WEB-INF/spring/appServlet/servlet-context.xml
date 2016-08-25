@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" 
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
 		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
@@ -29,7 +28,8 @@
 		/resources/** by efficiently serving up static resources in the ${webappRoot}/resources 
 		directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-	<context:property-placeholder location="/WEB-INF/spring/appServlet/jdbc.properties" />
+	<context:property-placeholder
+		location="/WEB-INF/spring/appServlet/jdbc.properties" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -40,8 +40,8 @@
 	<!-- </beans:bean> -->
 
 	<context:component-scan base-package="lcs.prs.goingmobile" />
-	
-	
+
+
 	<beans:bean id="templateResolver"
 		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
@@ -67,19 +67,13 @@
 
 
 	<!-- SPRING DATA : DB PARAM -->
-	
+
 	<jpa:repositories base-package="lcs.prs.goingmobile.repositories"></jpa:repositories>
 
-	<beans:bean id="mainDataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver"></beans:property>
-		<beans:property name="url" value="${jdbc.url}"></beans:property>
-		<beans:property name="username" value="${jdbc.username}"></beans:property>
-		<beans:property name="password" value="${jdbc.password}"></beans:property>
-	</beans:bean>
-	
+
+
 	<beans:bean class="org.springframework.orm.jpa.JpaTransactionManager"
-		id="transactionManager">		
+		id="transactionManager">
 	</beans:bean>
 
 	<beans:bean id="entityManagerFactory"
@@ -87,19 +81,24 @@
 		<beans:property name="dataSource" ref="mainDataSource"></beans:property>
 		<beans:property name="jpaVendorAdapter" ref="jpaVendorAdapter"></beans:property>
 		<beans:property name="packagesToScan" value="lcs.prs.goingmobile.entities"></beans:property>
+		<beans:property name="jpaProperties">
+			<beans:props>
+				<beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop>
+			</beans:props>
+		</beans:property>
 	</beans:bean>
-	
-		<beans:bean id="jpaVendorAdapter"
+
+	<beans:bean id="jpaVendorAdapter"
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<beans:property name="showSql" value="true" />
 		<beans:property name="generateDdl" value="true" />
 		<beans:property name="database" value="MYSQL" />
 	</beans:bean>
-	
-	
-	
-<!-- 	Injection of Specific repositories + services -->
-	
+
+
+
+	<!-- Injection of Specific repositories + services -->
+
 
 
 </beans:beans>

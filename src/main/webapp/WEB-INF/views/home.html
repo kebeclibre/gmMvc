@@ -1,4 +1,3 @@
-
 <div layout:decorator="masterPages/masterIncludes"
 	layout:fragment="content">
 	<div class="col-md-12">
@@ -13,41 +12,31 @@
 					</div>
 
 					<div class="col-md-3">
+					<div th:if="${session.user != null}">
+						<h3 th:text="${'Bonjour ' + session.user.getUsername()}"></h3>
+						<p>Bienvenue. Que souhaitez vous faire aujourd'hui ?</p>
+					
+					</div>
+						
+					<div th:if="${session.user == null}">
 						<h3>Connectez-Vous</h3>
 						
-						<form th:action="@{/j_spring_security_check}" 
-							method="post">
+							<form th:action="@{/j_spring_security_check}" method="post">
 
-							<p>
-								Utilisateur ou E-mail<input type="text" name="username"></input>
-							</p>
-							<p>
-								Password<input type="password" name="password"></input>
-							</p>
-							<p>
-								<input type="submit" value="Valider" ></input>
-							</p>
-						</form>
-						
-						
-<!-- 						<form th:action="@{/user/journeys}" th:object="${genericClient}" -->
-<!-- 							method="post"> -->
+								<p>
+									Utilisateur ou E-mail<input type="text" name="username"></input>
+								</p>
+								<p>
+									Password<input type="password" name="password"></input>
+								</p>
+								<p>
+									<input type="submit" value="Valider"></input>
+								</p>
+							</form>
 
-<!-- 							<p> -->
-<!-- 								Utilisateur ou E-mail<input type="text" th:field="*{username}"></input> -->
-<!-- 							</p> -->
-<!-- 							<p> -->
-<!-- 								Password<input type="password" th:field="*{password}"></input> -->
-<!-- 							</p> -->
-<!-- 							<p> -->
-<!-- 								<input type="submit" value="Valider" ></input> -->
-<!-- 							</p> -->
-<!-- 						</form> -->
-
+						</div>
 					</div>
 				</div>
-
-				<p th:text="${serverTime}"></p>
 			</div>
 		</div>
 	</div>

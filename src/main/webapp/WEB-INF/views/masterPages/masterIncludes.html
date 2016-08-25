@@ -10,8 +10,8 @@
 
 <header th:replace="includes/header :: header"></header>
 
-<div th:if="${null != user}" >
-	<div th:switch="${user.getClass().getSimpleName()}">
+<div th:if="${null != session.user}" >
+	<div th:switch="${session.user.getClass().getSimpleName()}">
 		<div th:case="Client" th:replace="includes/clientToolBar :: clientToolBar"></div>
 	
 	</div>
