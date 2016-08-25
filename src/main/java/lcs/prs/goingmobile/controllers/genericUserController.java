@@ -32,7 +32,7 @@ public class GenericUserController {
 	
 	
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
-	public String registerUser(@Valid @ModelAttribute("genericClient") Client client, BindingResult bindingResult, Model model) {  //MODEL BINDIG
+	public String registerUser(@Valid @ModelAttribute("genericClient") Client client, @ModelAttribute("user") Client user, BindingResult bindingResult, Model model) {  //MODEL BINDIG
 		if (bindingResult.hasErrors()) {
 			System.out.println("======================= IL Y A EU UNE ERREUR DE VALIDATION ======");
 			return "signUpForm";
@@ -41,6 +41,11 @@ public class GenericUserController {
 			model.addAttribute("user", client);
 			return "journeys";
 		}
+	}
+	
+	@ModelAttribute("user")
+	public Client getClient () {
+		return new Client();
 	}
 
 	
