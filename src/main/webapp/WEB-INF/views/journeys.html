@@ -1,9 +1,56 @@
-<div layout:decorator="masterPages/masterIncludes" layout:fragment="content">
-	<div class="col-md-12">
-	<h3>Journeys</h3>
-	<p th:text="${session.user.getUsername()}"></p>
-	<p th:text="${session.user.getPassword()}"></p>
+<div layout:decorator="masterPages/masterIncludes"
+	layout:fragment="content">
+	
+		<div class="col-md-12">
+		
+		<div class="jumbotron">
+			<h3>Voir vos trajets</h3>
+			<p th:text="${uploaded}"></p>	
+			<div class="container">
+				<p>
+					<a th:href="@{/user/addJourney}">Ajouter un trajet</a>
+				</p>
+				<div th:if="${session.user.journeyses != null}">
+
+					<table class="journeyTable">
+						<tr>
+
+							<th>Nom</th>
+							<th>Kilomètres</th>
+							<th>Probabilité cyclable</th>
+							<th>Map</th>
+							<th>Points</th>
+							<th>Date d'ajout</th>
+						</tr>
+						<!-- 	private String journeyName; -->
+						<!-- 	private String rawData; -->
+						<!-- 	private float kilometers; -->
+						<!-- 	private double gmPoints; -->
+						<!-- 	private float cycledProbability; -->
+						<!-- 	private Date addedDate; -->
+						<tr th:each="item : ${session.user.journeyses}">
+							<td th:text="${item.journeyName}"></td>
+							<td th:text="${item.kilometers}"></td>
+
+							<td th:text="${item.cycledProbability}"></td>
+							<td th:text="${item.rawData}"></td>
+							<td th:text="${item.gmPoints}"></td>
+							<td th:text="${item.addedDate}"></td>
+						</tr>
+
+
+
+					</table>
+
+
+
+				</div>
+
+			</div>
+		</div>
+
+
 	</div>
-
-
 </div>
+
+

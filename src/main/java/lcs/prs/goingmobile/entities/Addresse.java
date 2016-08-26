@@ -164,6 +164,12 @@ public class Addresse implements java.io.Serializable {
 		return this.addedDate;
 	}
 
+	@Override
+	public String toString() {
+		return streetName + ", " + streetNumber + "/" + box
+				+ ", "+ postCode + ", " + country;
+	}
+
 	public void setAddedDate(Date addedDate) {
 		this.addedDate = addedDate;
 	}

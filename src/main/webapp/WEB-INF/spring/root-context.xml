@@ -31,8 +31,10 @@
 	<security:http auto-config="true">
 		<security:intercept-url pattern="/user/**"
 			access="hasRole('ROLE_CLIENT')" />
+			<security:intercept-url pattern="/partner/**"
+			access="hasRole('ROLE_PARTNER')" />
 		<security:form-login login-page="/"
-			default-target-url="/user/journeys" authentication-failure-url="/"
+			default-target-url="/user/login" authentication-failure-url="/"
 			username-parameter="username" password-parameter="password"
 			login-processing-url="/j_spring_security_check" />
 
@@ -51,10 +53,16 @@
 		<security:authentication-provider>
 			<security:jdbc-user-service
 				data-source-ref="mainDataSource"
-				users-by-username-query="select username,password, isActive from clients where username=?"
+				users-by-username-query="select username,password, isActive from clients where username=? and isActive=1"
 				 authorities-by-username-query="select username, role from roles where username = ?"
 				role-prefix="ROLE_" />
 		</security:authentication-provider>
 	</security:authentication-manager>
+	
+	<beans:bean id="filterMultipartResolver" 
+      class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+
+    <beans:property name="maxUploadSize" value="-1" />
+</beans:bean> 
 
 </beans:beans>

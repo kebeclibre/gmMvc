@@ -1,0 +1,15 @@
+<div th:fragment="clientProfile">
+
+	<p>Historique des kilomètres parcourus: <span th:text="${session.user.kmsHistoryCumul}"></span></p>
+	<p>Kilomètres parcourus dans les trajets enregistrés: <span th:text="${session.user.kmsTotal}"></span></p>
+	<p>Historique des points cumulés: <span th:text="${session.user.gmPointsHistoryCumul}"></span></p>
+	<p>Points cumulés dans les trajets enregistrés: <span th:text="${session.user.gmPointsTotal}"></span></p>
+
+</div>
+
+
+
+<!-- 	private float kmsTotal; -->
+<!-- 	private double gmPointsTotal; -->
+<!-- 	private double gmPointsHistoryCumul; -->
+<!-- 	private float kmsHistoryCumul; -->

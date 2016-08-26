@@ -1,0 +1,14 @@
+<div layout:decorator="masterPages/masterIncludes"
+	layout:fragment="content">
+	<div class="col-md-12">
+		<div class="jumbotron">
+		
+		<form th:action="@{/user/processUpload}" method="post" enctype="multipart/form-data">
+			<p>Nom : <input name="journeyName" type="text" ></input></p>
+			<p> Fichier : <input name="file" type="file" ></input></p>
+			<p><input name="Envoyer" type="submit" ></input></p>
+		
+		</form>
+		</div>
+		</div>
+		</div>

@@ -3,7 +3,62 @@
 	<div class="col-md-12">
 		<div class="jumbotron">
 			<div class="container">
-				<div class="row">PROFILE</div>
+				<div class="row">
+					<div class="col-md-offset-2 col-md-4">
+						<p >Nom d'utilisateur : <span th:text="${user.username}"></span></p>
+						<p>E-mail : <span th:text="${user.email}"></span></p>
+						<a th:href="@{/commons/changePicture}"> <!-- 						TO ADD PARAMS : (userId=${session.user.id}) -->
+							<img class="profilePicture"
+							th:src="${session.user.profilePicture}"
+							th:href="@{/commons/changePicture}"></img></a> 
+							<p><a
+							class="changePassword" th:href="@{/commons/changePassword}">Changer
+							de mot de passe</a></p>
+					</div>
+					
+					
+					
+					<div class="col-md-5 col-md-offset-1" th:switch="${session.user.getClass().getSimpleName()}">
+						<div th:case="Client" th:replace="includes/clientProfile :: clientProfile"></div>
+
+					</div>
+					
+					
+					
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<h2>Adresses</h2>
+						<a th:href="@{/commons/addAddress}">Ajouter une adresse</a>
+						<div th:if="${session.user.addresseses != null}">
+
+							<table class="tableAdresses">
+								<tr>
+									<th>Type</th>
+									<th>Adresse</th>
+									<th>Coordonnées GPS</th>
+									<th>Date d'ajout</th>
+									<th>Changer l'adresse</th>
+								</tr>
+
+								<tr th:each="item : ${session.user.addresseses}">
+
+									<td th:text="${item.addressType}"></td>
+									<td th:text="${item.toString()}"></td>
+									<td th:text="${item.coordinates}"></td>
+									<td th:text="${item.addedDate}"></td>
+									<td><a
+										th:href="@{/commons/changeAdresse(adresseId=${item.id})}">Changez-moi</a></td>
+								</tr>
+
+							</table>
+
+						</div>
+
+					</div>
+
+
+				</div>
 			</div>
 		</div>
 	</div>

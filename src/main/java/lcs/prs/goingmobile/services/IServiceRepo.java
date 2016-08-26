@@ -4,5 +4,6 @@ public interface IServiceRepo<T,K> {
 	
 	void save(T element);
 	void findById(K key);
+	T findByUsername(String username);
 	
 }

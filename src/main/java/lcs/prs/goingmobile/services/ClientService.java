@@ -42,4 +42,19 @@ public class ClientService implements IServiceRepo<Client, Integer> {
 		
 	}
 
+	@Override
+	public Client findByUsername(String username) {
+		return repo.findByUsername(username);
+		
+	}
+	
+	public Client fetchJoinAddresses(String username) {
+		return repo.joinFetchAddresses(username);
+	}
+	
+	public Client fetchJoinAll(String username) {
+		return repo.joinFetchAll(username);
+	}
+
+	
 }

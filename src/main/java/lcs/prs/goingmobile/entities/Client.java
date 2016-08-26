@@ -243,6 +243,18 @@ public class Client implements java.io.Serializable, UserInterface {
 		this.addresseses = addresseses;
 	}
 
+
+
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", username=" + username + ", email=" + email + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", password=" + password + ", isActive=" + isActive + ", registrationDate="
+				+ registrationDate + ", profilePicture=" + profilePicture + ", kmsTotal=" + kmsTotal
+				+ ", gmPointsTotal=" + gmPointsTotal + ", gmPointsHistoryCumul=" + gmPointsHistoryCumul
+				+ ", kmsHistoryCumul=" + kmsHistoryCumul + ", bonus=" + bonus + ", isPublic=" + isPublic
+				+ ", addresseses=" + addresseses + "]";
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "clients")
 	public Set<Journey> getJourneyses() {
 		return this.journeyses;

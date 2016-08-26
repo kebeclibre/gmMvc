@@ -27,8 +27,6 @@ public class GenericUserController {
 	
 	@Autowired
 	private IServiceRepo<Client, Integer> serviceClient;
-	@Autowired
-	private AuthenticationManager authenticationManager;
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String displayForm(Model model) {
