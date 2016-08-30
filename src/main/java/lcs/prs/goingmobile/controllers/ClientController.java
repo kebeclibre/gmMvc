@@ -1,9 +1,7 @@
 package lcs.prs.goingmobile.controllers;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.security.Principal;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +18,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import lcs.prs.goingmobile.entities.Client;
+import lcs.prs.goingmobile.entities.Journey;
 import lcs.prs.goingmobile.services.ClientService;
+import lcs.prs.goingmobile.services.GpxService;
 import lcs.prs.goingmobile.services.IServiceRepo;
 
 @Controller
@@ -30,12 +30,18 @@ public class ClientController {
 
 	@Autowired
 	private ClientService clientService;
+	
+	@Autowired
+	GpxService gpxServ;
+	
+
 
 	private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
 
 	public IServiceRepo<Client, Integer> getService() {
 		return clientService;
 	}
+
 
 	public void setService(ClientService service) {
 		this.clientService = service;
@@ -51,6 +57,7 @@ public class ClientController {
 			model.addAttribute("user", user);
 			logger.info("USER ================>"+user.toString());
 			logger.info("ADRESSES ================>"+user.getAddresseses().toString());
+			logger.info("AUTH ================>"+activeUser.getAuthorities());
 		}
 		// httpSess.setAttribute("user", user);
 
@@ -91,31 +98,11 @@ public class ClientController {
 			Model model,
 			@ModelAttribute("user") Client client) {
 		
+			Set<Journey> toAddList = gpxServ.processGpx(multipartFile, journeyName);
+	
+			Client updated = clientService.update(client,toAddList);
+			model.addAttribute("user", updated);
 			
-			BufferedReader bf = null;
-			StringBuffer result = new StringBuffer();
-			try {
-				bf = new BufferedReader(new InputStreamReader(multipartFile.getInputStream()));
-				
-				String st = "";
-				while ((st = bf.readLine()) != null) {
-					result.append(st);
-				}
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				try {
-					bf.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			model.addAttribute("uploaded", result.toString());
-		
 		return "journeys";
 	}
 

@@ -18,9 +18,9 @@
 					
 					
 					
-					<div class="col-md-5 col-md-offset-1" th:switch="${session.user.getClass().getSimpleName()}">
-						<div th:case="Client" th:replace="includes/clientProfile :: clientProfile"></div>
-
+					<div class="col-md-5 col-md-offset-1" >
+						<div sec:authorize="hasRole('ROLE_CLIENT')" th:replace="includes/clientProfile :: clientProfile"></div>
+						<div sec:authorize="hasRole('ROLE_PARTNER')">jlgjkdfbnjdfgjdfgkldfjgldf</div>
 					</div>
 					
 					
@@ -32,7 +32,7 @@
 						<a th:href="@{/commons/addAddress}">Ajouter une adresse</a>
 						<div th:if="${session.user.addresseses != null}">
 
-							<table class="tableAdresses">
+							<table class="tableAdresses sumupTable">
 								<tr>
 									<th>Type</th>
 									<th>Adresse</th>

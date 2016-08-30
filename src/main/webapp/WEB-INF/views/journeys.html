@@ -12,11 +12,12 @@
 				</p>
 				<div th:if="${session.user.journeyses != null}">
 
-					<table class="journeyTable">
+					<table class="journeyTable sumupTable">
 						<tr>
 
 							<th>Nom</th>
 							<th>Kilomètres</th>
+							<th>Vitesse Moyenne</th>
 							<th>Probabilité cyclable</th>
 							<th>Map</th>
 							<th>Points</th>
@@ -31,7 +32,7 @@
 						<tr th:each="item : ${session.user.journeyses}">
 							<td th:text="${item.journeyName}"></td>
 							<td th:text="${item.kilometers}"></td>
-
+							<td th:text="${item.avgSpeed}"></td>
 							<td th:text="${item.cycledProbability}"></td>
 							<td th:text="${item.rawData}"></td>
 							<td th:text="${item.gmPoints}"></td>

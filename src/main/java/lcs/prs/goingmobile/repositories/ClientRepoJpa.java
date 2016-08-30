@@ -17,4 +17,7 @@ public interface ClientRepoJpa extends JpaRepository<Client, Integer>,AgentRepo<
 			+ "left join fetch c.journeyses as journey "
 			+ "where username=?1")
 	Client joinFetchAll(String username);
+	
+	@Query("select c from Client c left join fetch c.journeyses as journey where username=?1")
+	Client joinFetchJourneys(String username);
 }

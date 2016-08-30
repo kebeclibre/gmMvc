@@ -28,6 +28,7 @@
 		/resources/** by efficiently serving up static resources in the ${webappRoot}/resources 
 		directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
 	<context:property-placeholder
 		location="/WEB-INF/spring/appServlet/jdbc.properties" />
 
@@ -49,16 +50,15 @@
 		<beans:property name="templateMode" value="HTML5" />
 	</beans:bean>
 
-
-	<beans:bean class="nz.net.ultraq.thymeleaf.LayoutDialect"
-		id="layoutDialect" />
-
-
-
-
 	<beans:bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
-		<beans:property name="templateResolver" ref="templateResolver" />
-		<beans:property name="additionalDialects" ref="layoutDialect" />
+		<beans:property name="templateResolver" ref="templateResolver"></beans:property>
+		<beans:property name="additionalDialects">
+			<beans:set>
+				<beans:bean
+					class="org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect"></beans:bean>
+				<beans:bean class="nz.net.ultraq.thymeleaf.LayoutDialect"></beans:bean>
+			</beans:set>
+		</beans:property>
 	</beans:bean>
 
 	<beans:bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
@@ -94,7 +94,9 @@
 		<beans:property name="generateDdl" value="true" />
 		<beans:property name="database" value="MYSQL" />
 	</beans:bean>
-
+	
+	<beans:bean class="pt.karambola.gpx.parser.GpxParser" scope="prototype"></beans:bean>
+	<beans:bean class="pt.karambola.gpx.util.GpxTrackUtils" scope="prototype"></beans:bean>
 
 
 

@@ -2,6 +2,8 @@ package lcs.prs.goingmobile.entities;
 // Generated Aug 19, 2016 11:55:51 AM by Hibernate Tools 5.1.0.Beta1
 
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,6 +33,15 @@ public class Journey implements java.io.Serializable {
 	private Date addedDate;
 	private boolean isActive;
 	private boolean isPublic;
+	private double avgSpeed;
+
+	public double getAvgSpeed() {
+		return avgSpeed;
+	}
+
+	public void setAvgSpeed(double avgSpeed) {
+		this.avgSpeed = avgSpeed;
+	}
 
 	public Journey() {
 	}
@@ -60,7 +71,7 @@ public class Journey implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY,cascade={CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinColumn(name = "Client_Id", nullable = false)
 	public Client getClients() {
 		return this.clients;
