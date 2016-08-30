@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head th:replace="includes/header :: headBalise"></head>
 
 <body>
-<div class="container">
+	<div class="container">
 
-<header th:replace="includes/header :: header"></header>
+		<header th:replace="includes/header :: header"></header>
 
-<div th:if="${null != session.user}" >
-	<div th:switch="${session.user.getClass().getSimpleName()}">
-		<div th:case="Client" th:replace="includes/clientToolBar :: clientToolBar"></div>
-	
+		<div th:if="${null != session.user}">
+			<div th:switch="${session.user.getClass().getSimpleName()}">
+				<div th:case="Client"
+					th:replace="includes/clientToolBar :: clientToolBar"></div>
+
+			</div>
+
+		</div>
+
+
+
+
+
+
+
+		<div class="main row" id="middleRow" layout:fragment="content"></div>
+
+
+
+
+
+
+		<footer th:replace="includes/footer :: footer"></footer>
 	</div>
-	
-</div>
-	
-	
-	
-	
-	
-	
-	
-<div class="main row" id="middleRow" layout:fragment="content"></div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-<footer th:replace="includes/footer :: footer"></footer>	
-</div>
 
-<div th:replace="includes/footer :: scripts"></div>
+	<div th:replace="includes/footer :: scripts"></div>
 
-</body>	
+	
+
+
+
+</body>
 
 </html>

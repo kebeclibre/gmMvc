@@ -3,22 +3,19 @@ package lcs.prs.goingmobile.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import lcs.prs.goingmobile.entities.Client;
 import lcs.prs.goingmobile.services.IServiceRepo;
+import lcs.prs.goingmobile.services.JourneyService;
 
 @Controller
 @RequestMapping("/generic")
@@ -27,6 +24,9 @@ public class GenericUserController {
 	
 	@Autowired
 	private IServiceRepo<Client, Integer> serviceClient;
+	
+	@Autowired
+	private JourneyService journeyServ;
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String displayForm(Model model) {
@@ -50,6 +50,17 @@ public class GenericUserController {
 			return "home";
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getTrack")
+	public String getTrack(@RequestParam("trackid") int trackid) {
+		String result ="";
+		System.out.println("CALL ==========> OK");
+		return journeyServ.getTrackRaw(trackid);
+		
 
+	}
+	
+	
 	
 }

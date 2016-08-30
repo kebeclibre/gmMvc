@@ -1,11 +1,11 @@
 <div layout:decorator="masterPages/masterIncludes"
 	layout:fragment="content">
-	
-		<div class="col-md-12">
-		
+
+	<div class="col-md-12">
+
 		<div class="jumbotron">
 			<h3>Voir vos trajets</h3>
-			<p th:text="${uploaded}"></p>	
+			<p th:text="${uploaded}"></p>
 			<div class="container">
 				<p>
 					<a th:href="@{/user/addJourney}">Ajouter un trajet</a>
@@ -34,7 +34,7 @@
 							<td th:text="${item.kilometers}"></td>
 							<td th:text="${item.avgSpeed}"></td>
 							<td th:text="${item.cycledProbability}"></td>
-							<td th:text="${item.rawData}"></td>
+							<td><div hidden="hidden" id="rawData"></div></td>
 							<td th:text="${item.gmPoints}"></td>
 							<td th:text="${item.addedDate}"></td>
 						</tr>
@@ -46,12 +46,127 @@
 
 
 				</div>
+				<div id="map" style="width: 500px; height: 500px;"></div>
 
 			</div>
 		</div>
 
 
 	</div>
+	<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="http://maps.google.com/maps/api/js?key=AIzaSyAM0eTW9bf1e_8BjW5NgF00c1msQXP00J4">
+// 	sensor=false
+	</script>
+	<script th:src="@{/resources/gpxviewer-next/loadgpx.js}"></script>
+
+	<script type="text/javascript">
+
+	
+	$(document)
+			.ready(function() {
+
+				console
+						.log("================== Ici le JS du Chargement ======================");
+				
+			   console.log("Definition de la fonction  loadGPXFileIntoGoogleMap");	
+				
+			 	function loadGPXFileIntoGoogleMap(map, filename) {
+		         $.ajax({url: filename,
+		             dataType: "xml",
+		             type:"get",
+		             data:{trackid:4},
+		             success: function(data) {
+		               var parser = new GPXParser(data, map);
+		               parser.setTrackColour("#ff0000");     // Set the track line colour
+		               parser.setTrackWidth(5);          // Set the track line width
+		               parser.setMinTrackPointDelta(0.001);      // Set the minimum distance between track points
+		               parser.centerAndZoom(data);
+		               parser.addTrackpointsToMap();         // Add the trackpoints
+		               parser.addWaypointsToMap();           // Add the waypoints
+		             },
+		             error: function (request, status, error) {
+		                 alert(request.responseText);
+		             }
+		         });
+		     };
+		     console.log("Definition de l objet mapOptions");	
+		 	var mapOptions = {
+	 	   	      zoom: 8,
+	 	   	      mapTypeId: google.maps.MapTypeId.ROADMAP
+	 	   	};
+	 	    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	 	   	
+	 	    
+	 	    console.log("Appel a loadGPXIntoGoogleMap");
+	 	    loadGPXFileIntoGoogleMap(map,"/goingmobile/generic/getTrack");
+	 	   			
+				
+
+			}
+
+			);
+</script>
+
+	// function loadGPXFileIntoGoogleMap(map, filename) { // $.ajax({url:
+	filename, // dataType: "xml", // type:"get", // data:{trackid:4}, //
+	success: function(data) { // var parser = new GPXParser(data, map); //
+	parser.setTrackColour("#ff0000"); // Set the track line colour //
+	parser.setTrackWidth(5); // Set the track line width //
+	parser.setMinTrackPointDelta(0.001); // Set the minimum distance
+	between track points // parser.centerAndZoom(data); //
+	parser.addTrackpointsToMap(); // Add the trackpoints //
+	parser.addWaypointsToMap(); // Add the waypoints // }, // error:
+	function (request, status, error) { // alert(request.responseText); //
+	} // }); // } // document.onload=function() { //
+	console.log("================== Ici le JS du Chargement
+	======================"); // } // var mapOptions = { // zoom: 8, //
+	mapTypeId: google.maps.MapTypeId.ROADMAP // }; // var map = new
+	google.maps.Map(document.getElementById("map"), // mapOptions); //
+	loadGPXFileIntoGoogleMap(map,"/generic/getTrack"); // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>
+// 	function loadGPXFileIntoGoogleMap(map) {
+// 	       	var data = document.getElementById("rawData").innerHTML;
+// 	          var parser = new GPXParser(data, map);
+// 	          parser.setTrackColour("#ff0000");     // Set the track line colour
+// 	          parser.setTrackWidth(5);          // Set the track line width
+// 	          parser.setMinTrackPointDelta(0.001);      // Set the minimum distance between track points
+// 	          parser.centerAndZoom(data);
+// 	          parser.addTrackpointsToMap();         // Add the trackpoints
+// 	          parser.addWaypointsToMap();           // Add the waypoints
+	        
+// 	    }
+	
+// document.onload=function() {
+//     var mapOptions = {
+//   	      zoom: 8,
+//   	      mapTypeId: google.maps.MapTypeId.ROADMAP
+//   	    };
+//   	    var map = new google.maps.Map(document.getElementById("map"),
+//   	        mapOptions);
+//   	    loadGPXFileIntoGoogleMap(map);
+//   	}
+	
+</script>
+
 </div>
 
 
