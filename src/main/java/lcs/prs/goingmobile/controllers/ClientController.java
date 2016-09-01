@@ -29,7 +29,7 @@ import lcs.prs.goingmobile.services.TransactionService;
 
 @Controller
 @RequestMapping("/user")
-@SessionAttributes({ "user" })
+@SessionAttributes({ "user", "omega" })
 public class ClientController {
 
 	@Autowired
@@ -67,6 +67,7 @@ public class ClientController {
 			if (null == user) {
 				Partner part = partnerService.fetchAll(activeUser.getUsername());
 				model.addAttribute("user", part);
+				model.addAttribute("omega", "Commerçant");
 				logger.info("USER ================>"+part.toString());
 			//	logger.info("ADRESSES ================>"+user.getAddresseses().toString());
 				logger.info("AUTH ================>"+activeUser.getAuthorities());
