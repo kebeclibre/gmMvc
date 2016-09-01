@@ -4,8 +4,9 @@
 		<ul class="nav navbar-nav">
 			<li class="active"><a th:href="@{/partner/offers}" class="">Voir Offres</a></li>
 
-			<li><a th:href="@{/partner/profile}">Voir Profil</a></li>
+			<li><a th:href="@{/common/currentProfile}">Voir Profil</a></li>
 			<li th:replace="includes/toolbarTransaction :: transac"></li>
+			<li><a th:href="@{/partner/engageTransaction}"></a></li>
 		</ul>
 
 	</div>

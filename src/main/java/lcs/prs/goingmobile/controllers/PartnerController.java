@@ -18,5 +18,10 @@ public class PartnerController {
 		
 		return "offers";
 	}
+	
+	@RequestMapping("/engageTransaction")
+	public String engageTransaction(Model model) {
+		return "newTransaction";
+	}
 		
 }
