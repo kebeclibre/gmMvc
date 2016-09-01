@@ -56,10 +56,9 @@
 								<li th:switch="${session.user}">
 									<a th:case="null" th:href="@{/generic/signup}">S'inscrire</a>
 					
-									<span th:case="*">
-										<a th:text="${'Bonjour '+session.user.getUsername()}" th:href="@{/common/currentProfile}"></a>
+									<a th:case="*" th:text="${'Bonjour '+session.user.getUsername()}" th:href="@{/common/currentProfile}"></a>
 		
-									</span>
+								
 								</li>
 
 								<li th:if="${session.user != null}" ><a th:href="@{/logout}">Logout</a></li>

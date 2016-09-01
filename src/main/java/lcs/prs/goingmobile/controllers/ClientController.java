@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,16 +66,23 @@ public class ClientController {
 		if (null != principal) {
 			User activeUser = (User) ((Authentication) principal).getPrincipal();
 			user = clientService.fetchJoinAll(activeUser.getUsername());
-			if (null == user) {
+	
+			GrantedAuthority ga = new SimpleGrantedAuthority("ROLE_CLIENT");
+			
+			if (!activeUser.getAuthorities().contains(ga)) {
 				Partner part = partnerService.fetchAll(activeUser.getUsername());
+				if (null == part) { // Just Debugging if DB doesn't contain a partner
+					part = new Partner();
+				}
 				model.addAttribute("user", part);
 				model.addAttribute("omega", "Commerçant");
-				logger.info("USER ================>"+part.toString());
+				//logger.info("USER ================>"+part.toString());
 			//	logger.info("ADRESSES ================>"+user.getAddresseses().toString());
 				logger.info("AUTH ================>"+activeUser.getAuthorities());
 				return "redirect:/partner/offers";
 			}
 			
+			if (null == user) {user = new Client();} // again, just debugging
 			model.addAttribute("user", user);
 			logger.info("USER ================>"+user.toString());
 			logger.info("ADRESSES ================>"+user.getAddresseses().toString());
