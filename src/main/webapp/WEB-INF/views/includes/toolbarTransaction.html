@@ -1,0 +1,6 @@
+<li th:fragment="transac">
+
+<a sec:authorize="hasRole('ROLE_CLIENT')" th:href="@{/user/transactions}">Transactions</a>
+<a sec:authorize="hasRole('ROLE_PARTNER')" th:href="@{/partner/transactions}">Transactions</a>
+
+</li>

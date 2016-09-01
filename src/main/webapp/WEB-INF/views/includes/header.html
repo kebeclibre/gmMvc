@@ -28,6 +28,7 @@
 									class="icon-bar"></span>
 							</button>
 							<a class="navbar-brand" th:href="@{/}">Going Mobile</a>
+							<ul class="nav navbar-nav"><li><a href="#" th:text="${'Univers '+ session.omega}"></a></li></ul>
 						</div>
 						<div id="navbar" class="navbar-collapse collapse">
 							<ul class="nav navbar-nav">
@@ -53,8 +54,12 @@
 <!-- 								</ul> -->
 								
 								<li th:switch="${session.user}">
-									<a th:case="null" th:href="@{/generic/signup}">S'inscrire</a> 
-									<a th:case="*" th:text="${'Bonjour '+session.user.getUsername()}" th:href="@{/user/profile}"></a>
+									<a th:case="null" th:href="@{/generic/signup}">S'inscrire</a>
+					
+									<span th:case="*">
+										<a sec:authorize="hasRole('ROLE_CLIENT')" th:text="${'Bonjour '+session.user.getUsername()}" th:href="@{/user/profile}"></a>
+										<a sec:authorize="hasRole('ROLE_PARTNER')" th:text="${'Bonjour '+session.user.getUsername()}" th:href="@{/partner/profile}"></a>
+									</span>
 								</li>
 
 								<li th:if="${session.user != null}" ><a th:href="@{/logout}">Logout</a></li>

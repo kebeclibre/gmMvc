@@ -19,9 +19,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lcs.prs.goingmobile.entities.Client;
 import lcs.prs.goingmobile.entities.Journey;
+import lcs.prs.goingmobile.entities.Partner;
+import lcs.prs.goingmobile.entities.Transaction;
 import lcs.prs.goingmobile.services.ClientService;
 import lcs.prs.goingmobile.services.GpxService;
 import lcs.prs.goingmobile.services.IServiceRepo;
+import lcs.prs.goingmobile.services.PartnerService;
+import lcs.prs.goingmobile.services.TransactionService;
 
 @Controller
 @RequestMapping("/user")
@@ -32,7 +36,13 @@ public class ClientController {
 	private ClientService clientService;
 	
 	@Autowired
-	GpxService gpxServ;
+	private GpxService gpxServ;
+	
+	@Autowired
+	private TransactionService transServ;
+	
+	@Autowired
+	private PartnerService partnerService;
 	
 
 
@@ -54,6 +64,15 @@ public class ClientController {
 		if (null != principal) {
 			User activeUser = (User) ((Authentication) principal).getPrincipal();
 			user = clientService.fetchJoinAll(activeUser.getUsername());
+			if (null == user) {
+				Partner part = partnerService.fetchAll(activeUser.getUsername());
+				model.addAttribute("user", part);
+				logger.info("USER ================>"+part.toString());
+			//	logger.info("ADRESSES ================>"+user.getAddresseses().toString());
+				logger.info("AUTH ================>"+activeUser.getAuthorities());
+				return "redirect:/partner/offers";
+			}
+			
 			model.addAttribute("user", user);
 			logger.info("USER ================>"+user.toString());
 			logger.info("ADRESSES ================>"+user.getAddresseses().toString());
@@ -67,7 +86,7 @@ public class ClientController {
 		model.addAttribute("pageTitle", "GoingMobile : Regardez vos trajets");
 		
 
-		return "journeys";
+		return "redirect:/user/journeys";
 	}
 	
 
@@ -111,5 +130,23 @@ public class ClientController {
 			
 		return "journeys";
 	}
+	
+	public TransactionService getTransServ() {
+		return transServ;
+	}
 
+
+	public void setTransServ(TransactionService transServ) {
+		this.transServ = transServ;
+	}
+
+
+	@RequestMapping("/transactions")
+	public String seeTransactions(Model model, @ModelAttribute("user") Client user) {
+		
+		Set<Transaction> transactions = transServ.fetchJoinByClientId(user.getId());
+		model.addAttribute("transactions", transactions);
+		
+		return "transactions";
+	}
 }

@@ -12,47 +12,53 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import lcs.prs.goingmobile.entities.Client;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
+@SessionAttributes({ "omega" })
 public class HomeController {
-	
+
 	@Autowired
 	private ServletContext servletContext;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
+
 		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
+
+		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("pageTitle", "GoingMobile: Traversez la ville naturellement.");
-		
-		
+
+		model.addAttribute("omega", "Cycliste");
 		return "home";
 	}
-	
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(Model model, HttpSession sess) {
-		
+
 		sess.invalidate();
 		return "redirect:/";
 	}
-	
+
+	@RequestMapping(value = "/connectAsPartner", method = RequestMethod.GET)
+	public String connectAsPartner(Model model) {
+
+		model.addAttribute("omega", "Commerçants");
+		return "home";
+	}
+
 }

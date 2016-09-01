@@ -1,0 +1,12 @@
+<div class="row userToolBar" th:fragment="partnerToolBar">
+	<div class="col-md-11 col-md-offset-1">
+
+		<ul class="nav navbar-nav">
+			<li class="active"><a th:href="@{/partner/offers}" class="">Voir Offres</a></li>
+
+			<li><a th:href="@{/partner/profile}">Voir Profil</a></li>
+			<li th:replace="includes/toolbarTransaction :: transac"></li>
+		</ul>
+
+	</div>
+</div>

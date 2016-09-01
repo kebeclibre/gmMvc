@@ -57,10 +57,8 @@ public class GenericUserController {
 		String result ="";
 		System.out.println("CALL ==========> OK");
 		return journeyServ.getTrackRaw(trackid);
-		
-
 	}
 	
-	
-	
+
+
 }

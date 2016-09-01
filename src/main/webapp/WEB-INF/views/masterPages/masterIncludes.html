@@ -11,10 +11,13 @@
 		<header th:replace="includes/header :: header"></header>
 
 		<div th:if="${null != session.user}">
-			<div th:switch="${session.user.getClass().getSimpleName()}">
-				<div th:case="Client"
-					th:replace="includes/clientToolBar :: clientToolBar"></div>
-
+				<div sec:authorize="hasRole('ROLE_CLIENT')">
+				<div	th:replace="includes/clientToolBar :: clientToolBar"></div>
+				</div>
+				
+				
+				<div sec:authorize="hasRole('ROLE_PARTNER')">
+				<div	th:replace="includes/partnerToolBar :: partnerToolBar"></div>
 			</div>
 
 		</div>

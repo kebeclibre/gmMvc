@@ -1,0 +1,57 @@
+<div layout:decorator="masterPages/masterIncludes"
+	layout:fragment="content">
+
+	<div class="col-md-12">
+
+		<div class="jumbotron">
+			<h3 sec:authorize="hasRole('ROLE_CLIENT')">
+				Solde Actuel : <span
+					th:text="${#numbers.formatDecimal(session.user.gmPointsHistoryCumul, 0, 'COMMA', 2, 'POINT')}"></span>
+			</h3>
+			<h3>
+				Transaction effectuées par <span th:text="${session.user.username}"></span>
+			</h3>
+
+			<div class="transactionContainer" th:if="${transactions != null}">
+				<div th:each="item : ${transactions}">
+					<p>Date : <span th:text="${item.transactionDate}"></span></p>
+					<div sec:authorize="hasRole('ROLE_CLIENT')">
+						<h4>
+							Avec : <a th:text="${item.partners.username}"
+								th:href="@{/generic/viewProfile(cat=partner;id=${item.partners.id})}"></a>
+						</h4>
+
+					</div>
+
+
+					<div sec:authorize="hasRole('ROLE_PARTNER')">
+						<h4>
+							Avec : <a th:text="${item.clients.username}"
+								th:href="@{@{/generic/viewProfile(cat=client;id=${item.clients.id})}"></a>
+						</h4>
+					</div>
+
+					<p>
+						Points engagés <span
+							th:text="${${#numbers.formatDecimal(item.gmPointsEngaged, 0, 'COMMA', 2, 'POINT')}}"></span>
+					</p>
+					<p>
+						Description : <span th:text="${item.descriptionTransaction}"></span>
+					</p>
+
+
+
+					<p class="comment">
+						Commentaire du commerçant : <span th:text="${item.commentPartner}">
+						</span>
+					</p>
+					<p class="comment">
+						Commentaire du client : <span th:text="${item.commentClient}"></span>
+					</p>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

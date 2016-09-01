@@ -36,5 +36,9 @@ public class PartnerService implements IServiceRepo<Partner, Integer>{
 		return repo.findByUsername(username);
 		
 	}
+	
+	public Partner fetchAll(String username) {
+		return repo.joinFetchAll(username);
+	}
 
 }
