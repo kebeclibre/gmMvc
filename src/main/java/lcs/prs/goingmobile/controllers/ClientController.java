@@ -58,6 +58,9 @@ public class ClientController {
 			logger.info("USER ================>"+user.toString());
 			logger.info("ADRESSES ================>"+user.getAddresseses().toString());
 			logger.info("AUTH ================>"+activeUser.getAuthorities());
+			
+
+			logger.info("Journey ================>"+user.getJourneyses());
 		}
 		// httpSess.setAttribute("user", user);
 
@@ -100,8 +103,11 @@ public class ClientController {
 		
 			Set<Journey> toAddList = gpxServ.processGpx(multipartFile, journeyName);
 	
-			Client updated = clientService.update(client,toAddList);
+			clientService.update(client,toAddList);
+			
+			Client updated = clientService.fetchJoinAll(client.getUsername());
 			model.addAttribute("user", updated);
+			model.addAttribute("uploaded", "Votre GPX et ses trajets ont été ajoutés avec succès");
 			
 		return "journeys";
 	}

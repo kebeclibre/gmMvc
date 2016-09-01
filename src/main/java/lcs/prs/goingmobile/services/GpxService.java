@@ -1,12 +1,15 @@
 package lcs.prs.goingmobile.services;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,7 +74,7 @@ public class GpxService {
 		Date end = tr.getTrackPoints().get(trackSize-1).getTime();
 		
 		long delta = end.getTime() - start.getTime();
-				
+		
 		return convertToKmH(distance,delta/1000);
 		
 	}
@@ -90,22 +93,50 @@ public class GpxService {
 			for (Track tr : gpx.getTracks()) {
 				float dist = (float)getTrackDistanceMeters(tr)/1000;
 				double avg = getTrackAverageSpeedKmH(tr);
-				double gmPoints = dist*0.5;
-				
+				float proba = computeProba(avg);
+				double gmPoints = computePoints(avg, proba);
+				Gpx indivGpx = new Gpx();
+				indivGpx.addTrack(tr);
 				Journey journey = new Journey();
 				
+				//parser.writ
+				if (dist>0.5 && avg>2) {
 				journey.setJourneyName(name+i);
 				journey.setKilometers(dist);
 				journey.setAvgSpeed(avg);
 				journey.setGmPoints(gmPoints);
-				journey.setCycledProbability(1);
-				journey.setRawData(tr.getSrc());
+				journey.setCycledProbability(proba);
+				journey.setRawData(gpxToString(indivGpx));
 				journeyList.add(journey);
-				
+				}
 				i++;
 			}
 			
 		return journeyList;
+	}
+	
+	public String gpxToString(Gpx gpx) {
+		
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		String output = null;
+		try {
+			parser.writeGpx(gpx, bos);
+			output = new String(bos.toByteArray(),"UTF-8");
+		} catch (ParserConfigurationException | TransformerException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return output;
+		
+	}
+	
+	public float computeProba(double avgspeed) {
+		return (float)1.0;
+	}
+	
+	public double computePoints(double kms,float proba) {
+		return kms*proba/2;
 	}
 	
 }

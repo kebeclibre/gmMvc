@@ -59,6 +59,66 @@ public class Journey implements java.io.Serializable {
 		this.isPublic = isPublic;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((addedDate == null) ? 0 : addedDate.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(avgSpeed);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + Float.floatToIntBits(cycledProbability);
+		temp = Double.doubleToLongBits(gmPoints);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + (isActive ? 1231 : 1237);
+		result = prime * result + (isPublic ? 1231 : 1237);
+		result = prime * result + ((journeyName == null) ? 0 : journeyName.hashCode());
+		result = prime * result + Float.floatToIntBits(kilometers);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Journey other = (Journey) obj;
+		if (addedDate == null) {
+			if (other.addedDate != null)
+				return false;
+		} else if (!addedDate.equals(other.addedDate))
+			return false;
+		if (Double.doubleToLongBits(avgSpeed) != Double.doubleToLongBits(other.avgSpeed))
+			return false;
+		if (Float.floatToIntBits(cycledProbability) != Float.floatToIntBits(other.cycledProbability))
+			return false;
+		if (Double.doubleToLongBits(gmPoints) != Double.doubleToLongBits(other.gmPoints))
+			return false;
+		if (isActive != other.isActive)
+			return false;
+		if (isPublic != other.isPublic)
+			return false;
+		if (journeyName == null) {
+			if (other.journeyName != null)
+				return false;
+		} else if (!journeyName.equals(other.journeyName))
+			return false;
+		if (Float.floatToIntBits(kilometers) != Float.floatToIntBits(other.kilometers))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Journey [id=" + id + ", clients=" + clients + ", journeyName=" + journeyName + ", rawData=" + rawData
+				+ ", kilometers=" + kilometers + ", gmPoints=" + gmPoints + ", cycledProbability=" + cycledProbability
+				+ ", addedDate=" + addedDate + ", isActive=" + isActive + ", isPublic=" + isPublic + ", avgSpeed="
+				+ avgSpeed + "]";
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
@@ -71,7 +131,7 @@ public class Journey implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY,cascade={CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE})
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Client_Id", nullable = false)
 	public Client getClients() {
 		return this.clients;

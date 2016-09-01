@@ -1,9 +1,9 @@
 <div th:fragment="clientProfile">
 
-	<p>Historique des kilomètres parcourus: <span th:text="${session.user.kmsHistoryCumul}"></span></p>
-	<p>Kilomètres parcourus dans les trajets enregistrés: <span th:text="${session.user.kmsTotal}"></span></p>
-	<p>Historique des points cumulés: <span th:text="${session.user.gmPointsHistoryCumul}"></span></p>
-	<p>Points cumulés dans les trajets enregistrés: <span th:text="${session.user.gmPointsTotal}"></span></p>
+	<p>Historique des kilomètres parcourus: <span th:text="${#numbers.formatDecimal(session.user.kmsHistoryCumul, 0, 'COMMA', 2, 'POINT')}"></span></p>
+	<p>Kilomètres parcourus dans les trajets enregistrés: <span th:text="${#numbers.formatDecimal(session.user.kmsTotal, 0, 'COMMA', 2, 'POINT')}"></span></p>
+	<p>Historique des points cumulés: <span th:text="${#numbers.formatDecimal(session.user.gmPointsHistoryCumul, 0, 'COMMA', 2, 'POINT')}"></span></p>
+	<p>Points cumulés dans les trajets enregistrés: <span th:text="${#numbers.formatDecimal(session.user.gmPointsTotal, 0, 'COMMA', 2, 'POINT')}"></span></p>
 
 </div>
 

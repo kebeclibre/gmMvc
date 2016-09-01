@@ -37,3 +37,15 @@ td {
 .profilePicture {
 	height: 150px;
 }
+
+.googleMap {
+	height:200px;
+	width: 100%;
+	
+}
+
+.journeyData {
+	border-bottom: 5px solid #ddd;
+	padding:10px;
+	margin-bottom:20px;
+}

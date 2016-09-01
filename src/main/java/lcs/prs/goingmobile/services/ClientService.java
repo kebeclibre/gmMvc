@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lcs.prs.goingmobile.entities.Client;
 import lcs.prs.goingmobile.entities.Journey;
@@ -17,6 +18,17 @@ public class ClientService implements IServiceRepo<Client, Integer> {
 	@Autowired
 	private ClientRepoJpa repo;
 	
+	@Autowired
+	private JourneyService journeyService;
+	
+	public JourneyService getJourneyService() {
+		return journeyService;
+	}
+
+	public void setJourneyService(JourneyService journeyService) {
+		this.journeyService = journeyService;
+	}
+
 	public ClientRepoJpa getRepo() {
 		return repo;
 	}
@@ -76,6 +88,7 @@ public class ClientService implements IServiceRepo<Client, Integer> {
 		
 	}
 	
+	@Transactional
 	public Client update(Client client,Set<Journey> journeySet) {
 		Client managed =repo.joinFetchJourneys(client.getUsername());
 		
@@ -89,18 +102,18 @@ public class ClientService implements IServiceRepo<Client, Integer> {
 			j.setIsActive(true);
 			j.setClients(managed);
 			
-			
-			
 		}
 		
+		
+		journeyService.saveAll(journeySet);
 		Set<Journey> global = client.getJourneyses();
 		
 		global.addAll(journeySet);
 		
 		managed.setJourneyses(global);
 		
+		repo.save(managed);
 		
-		repo.saveAndFlush(managed);
 		return managed;
 		
 	}

@@ -256,7 +256,7 @@ public class Client implements java.io.Serializable, UserInterface {
 				+ ", addresseses=" + addresseses + "]";
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "clients",cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "clients",cascade={CascadeType.REMOVE,CascadeType.PERSIST})
 	public Set<Journey> getJourneyses() {
 		return this.journeyses;
 	}
