@@ -54,13 +54,13 @@
 
 	<security:authentication-manager alias="authenticationManager"
 		erase-credentials="false">
-		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="lucas" password="lucas"
-					authorities="ROLE_CLIENT" />
-				<security:user name="bob" password="bob" authorities="ROLE_PARTNER" />
-			</security:user-service>
-		</security:authentication-provider>
+<!-- 		<security:authentication-provider> -->
+<!-- 			<security:user-service> -->
+<!-- 				<security:user name="lucas" password="lucas" -->
+<!-- 					authorities="ROLE_CLIENT" /> -->
+<!-- 				<security:user name="bob" password="bob" authorities="ROLE_PARTNER" /> -->
+<!-- 			</security:user-service> -->
+<!-- 		</security:authentication-provider> -->
 
 		<security:authentication-provider>
 			<security:jdbc-user-service
