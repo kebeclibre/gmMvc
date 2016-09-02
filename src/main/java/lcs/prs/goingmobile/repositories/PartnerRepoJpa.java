@@ -9,9 +9,10 @@ import lcs.prs.goingmobile.entities.Partner;
 
 @Transactional
 public interface PartnerRepoJpa extends JpaRepository<Partner, Integer>,AgentRepo<Partner> {
+	
 	@Query("select p from Partner p "
 			+ "left join fetch p.addresseses as a "
 			+ "left join fetch p.partneradses as o "
-			+ "where username=?1")
+			+ "where p.username=?1")
 	public Partner joinFetchAll(String username);
 }

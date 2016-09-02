@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.SAXException;
 
 import lcs.prs.goingmobile.entities.Journey;
+import lcs.prs.goingmobile.services.interfaces.GpxServiceIFace;
 import pt.karambola.gpx.beans.Gpx;
 import pt.karambola.gpx.beans.Route;
 import pt.karambola.gpx.beans.Track;
@@ -24,7 +25,7 @@ import pt.karambola.gpx.util.GpxRouteUtils;
 import pt.karambola.gpx.util.GpxTrackUtils;
 
 @Service
-public class GpxService implements ServiceIFace {
+public class GpxService implements ServiceIFace, GpxServiceIFace {
 	
 	@Autowired
 	GpxParser parser;
@@ -82,6 +83,7 @@ public class GpxService implements ServiceIFace {
 		return (meters/seconds)*3.6;
 	}
 	
+	@Override
 	public Set<Journey> processGpx(MultipartFile multipartFile, String name) {
 		Set<Journey> journeyList = new HashSet<>();
 		

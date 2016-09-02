@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 
 import lcs.prs.goingmobile.entities.Transaction;
 import lcs.prs.goingmobile.repositories.TransactionRepo;
+import lcs.prs.goingmobile.services.interfaces.TransactionServiceIFace;
 
 @Service
-public class TransactionService implements ServiceIFace {
+public class TransactionService implements ServiceIFace, TransactionServiceIFace {
 
 	@Autowired
 	private TransactionRepo repo;
@@ -22,14 +23,17 @@ public class TransactionService implements ServiceIFace {
 		this.repo = repo;
 	}
 
+	@Override
 	public Set<Transaction> fetchJoinByClientId(int id) {
 		return repo.joinFetchAllByClientId(id);
 	}
 	
+	@Override
 	public Set<Transaction> fetchJoinByPartnerId(int id) {
 		return repo.joinFetchAllByPartnerId(id);
 	}
 	
+	@Override
 	public void save(Transaction transaction) {
 		repo.save(transaction);
 	}

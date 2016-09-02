@@ -5,26 +5,35 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-offset-2 col-md-4">
-						<p >Nom d'utilisateur : <span th:text="${user.username}"></span></p>
-						<p>E-mail : <span th:text="${user.email}"></span></p>
+						<p>
+							Nom d'utilisateur : <span th:text="${user.username}"></span>
+						</p>
+						<p>
+							E-mail : <span th:text="${user.email}"></span>
+						</p>
 						<a th:href="@{/commons/changePicture}"> <!-- 						TO ADD PARAMS : (userId=${session.user.id}) -->
 							<img class="profilePicture"
 							th:src="${session.user.profilePicture}"
-							th:href="@{/commons/changePicture}"></img></a> 
-							<p><a
-							class="changePassword" th:href="@{/commons/changePassword}">Changer
-							de mot de passe</a></p>
+							th:href="@{/commons/changePicture}"></img></a>
+						<p>
+							<a class="changePassword" th:href="@{/commons/changePassword}">Changer
+								de mot de passe</a>
+						</p>
 					</div>
-					
-					
-					
-					<div class="col-md-5 col-md-offset-1" >
-						<div sec:authorize="hasRole('ROLE_CLIENT')" th:replace="includes/clientProfile :: clientProfile"></div>
+
+
+
+					<div class="col-md-5 col-md-offset-1">
+						<div sec:authorize="hasRole('ROLE_CLIENT')">
+							<div th:replace="includes/clientProfile :: clientProfile">
+
+							</div>
+						</div>
 						<div sec:authorize="hasRole('ROLE_PARTNER')">jlgjkdfbnjdfgjdfgkldfjgldf</div>
 					</div>
-					
-					
-					
+
+
+
 				</div>
 				<div class="row">
 					<div class="col-md-12">

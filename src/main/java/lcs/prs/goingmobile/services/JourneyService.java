@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 
 import lcs.prs.goingmobile.entities.Journey;
 import lcs.prs.goingmobile.repositories.JourneyRepo;
+import lcs.prs.goingmobile.services.interfaces.JourneyServiceIFace;
 
 @Service
-public class JourneyService implements ServiceIFace {
+public class JourneyService implements ServiceIFace, JourneyServiceIFace {
 
 	@Autowired
 	private JourneyRepo journeyRepo;
@@ -22,10 +23,12 @@ public class JourneyService implements ServiceIFace {
 		this.journeyRepo = journeyRepo;
 	}
 
+	@Override
 	public String getTrackRaw(int id){
 		return journeyRepo.findOne(id).getRawData();
 	}
 	
+	@Override
 	public void saveAll(Set<Journey> newJourneys) {
 		journeyRepo.save(newJourneys);
 	}

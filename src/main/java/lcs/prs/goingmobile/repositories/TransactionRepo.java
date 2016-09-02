@@ -2,12 +2,14 @@ package lcs.prs.goingmobile.repositories;
 
 import java.util.Set;
 
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import lcs.prs.goingmobile.entities.Transaction;
-
+@Repository
 @Transactional
 public interface TransactionRepo extends JpaRepository<Transaction, Integer>{
 

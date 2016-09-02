@@ -13,32 +13,36 @@ import lcs.prs.goingmobile.entities.Partner;
 import lcs.prs.goingmobile.exceptions.InsufficientFundsException;
 import lcs.prs.goingmobile.helperclasses.TransactionWrapper;
 import lcs.prs.goingmobile.repositories.ClientRepoJpa;
+import lcs.prs.goingmobile.services.interfaces.ClientServiceIFace;
+import lcs.prs.goingmobile.services.interfaces.IServiceRepo;
+import lcs.prs.goingmobile.services.interfaces.JourneyServiceIFace;
+import lcs.prs.goingmobile.services.interfaces.TransactionServiceIFace;
 
 @Service("clientService")
-public class ClientService implements IServiceRepo<Client, Integer> {
+public class ClientService implements ClientServiceIFace {
 
 	@Autowired
 	private ClientRepoJpa repo;
 	
 	@Autowired
-	private JourneyService journeyService;
+	private JourneyServiceIFace journeyService;
 	
 	@Autowired
-	private TransactionService transactionService;
+	private TransactionServiceIFace transactionService;
 	
-	public TransactionService getTransactionService() {
+	public TransactionServiceIFace getTransactionService() {
 		return transactionService;
 	}
 
-	public void setTransactionService(TransactionService transactionService) {
+	public void setTransactionService(TransactionServiceIFace transactionService) {
 		this.transactionService = transactionService;
 	}
 
-	public JourneyService getJourneyService() {
+	public JourneyServiceIFace getJourneyService() {
 		return journeyService;
 	}
 
-	public void setJourneyService(JourneyService journeyService) {
+	public void setJourneyService(JourneyServiceIFace journeyService) {
 		this.journeyService = journeyService;
 	}
 
@@ -75,14 +79,17 @@ public class ClientService implements IServiceRepo<Client, Integer> {
 		
 	}
 	
+	@Override
 	public Client fetchJoinAddresses(String username) {
 		return repo.joinFetchAddresses(username);
 	}
 	
+	@Override
 	public Client fetchJoinAll(String username) {
 		return repo.joinFetchAll(username);
 	}
 	
+	@Override
 	public void update(Client client) {
 		Client managed =repo.findOne(client.getId());
 		Set<Journey> journeyList = client.getJourneyses();
@@ -101,6 +108,7 @@ public class ClientService implements IServiceRepo<Client, Integer> {
 		
 	}
 	
+	@Override
 	@Transactional
 	public Client update(Client client,Set<Journey> journeySet) {
 		Client managed =repo.joinFetchJourneys(client.getUsername());
@@ -131,18 +139,23 @@ public class ClientService implements IServiceRepo<Client, Integer> {
 		
 	}
 	
+	@Override
+	@Transactional
 	public Client getClientWithCredentials(String username, String password) {
+		//Client result = 
+		
 		return repo.checkClientCredentials(username, password);
 	}
 	
+	@Override
 	@Transactional(rollbackFor=InsufficientFundsException.class)
-	public void proceedTransaction(Client client, Partner part, TransactionWrapper transactionWrapper) {//throws InsufficientFundsException {
+	public void proceedTransaction(Client client, Partner part, TransactionWrapper transactionWrapper) throws InsufficientFundsException {
 		if (client.getGmPointsHistoryCumul() < transactionWrapper.getTransaction().getGmPointsEngaged()) {
 			
-			//throw new InsufficientFundsException();
+			throw new InsufficientFundsException();
 		} else {
 			client.setGmPointsHistoryCumul(client.getGmPointsHistoryCumul()-(float)transactionWrapper.getTransaction().getGmPointsEngaged());
-			
+			transactionWrapper.getTransaction().setTransactionDate(new Date());
 			transactionWrapper.getTransaction().setClients(client);
 			transactionWrapper.getTransaction().setPartners(part);
 			repo.save(client);

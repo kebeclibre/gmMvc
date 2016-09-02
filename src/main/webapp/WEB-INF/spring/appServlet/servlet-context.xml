@@ -23,7 +23,7 @@
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
-	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<tx:annotation-driven proxy-target-class="false" transaction-manager="transactionManager"/>
 
 
 	<!-- Handles HTTP GET requests fo"S:/David/Hibou/Livrable.Laboratoire.JavaEE.2016/Compléments 

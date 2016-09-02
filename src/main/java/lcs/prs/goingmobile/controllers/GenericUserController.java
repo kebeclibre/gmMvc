@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import lcs.prs.goingmobile.entities.Client;
-import lcs.prs.goingmobile.services.IServiceRepo;
-import lcs.prs.goingmobile.services.JourneyService;
+import lcs.prs.goingmobile.services.interfaces.ClientServiceIFace;
+import lcs.prs.goingmobile.services.interfaces.IServiceRepo;
+import lcs.prs.goingmobile.services.interfaces.JourneyServiceIFace;
 
 @Controller
 @RequestMapping("/generic")
@@ -23,10 +24,10 @@ import lcs.prs.goingmobile.services.JourneyService;
 public class GenericUserController {
 	
 	@Autowired
-	private IServiceRepo<Client, Integer> serviceClient;
+	private ClientServiceIFace serviceClient;
 	
 	@Autowired
-	private JourneyService journeyServ;
+	private JourneyServiceIFace journeyServ;
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String displayForm(Model model) {

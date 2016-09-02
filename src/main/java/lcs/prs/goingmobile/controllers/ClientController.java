@@ -23,11 +23,12 @@ import lcs.prs.goingmobile.entities.Client;
 import lcs.prs.goingmobile.entities.Journey;
 import lcs.prs.goingmobile.entities.Partner;
 import lcs.prs.goingmobile.entities.Transaction;
-import lcs.prs.goingmobile.services.ClientService;
-import lcs.prs.goingmobile.services.GpxService;
-import lcs.prs.goingmobile.services.IServiceRepo;
-import lcs.prs.goingmobile.services.PartnerService;
-import lcs.prs.goingmobile.services.TransactionService;
+import lcs.prs.goingmobile.interfaces.UserInterface;
+import lcs.prs.goingmobile.services.interfaces.ClientServiceIFace;
+import lcs.prs.goingmobile.services.interfaces.GpxServiceIFace;
+import lcs.prs.goingmobile.services.interfaces.IServiceRepo;
+import lcs.prs.goingmobile.services.interfaces.PartnerServiceIface;
+import lcs.prs.goingmobile.services.interfaces.TransactionServiceIFace;
 
 @Controller
 @RequestMapping("/user")
@@ -35,45 +36,45 @@ import lcs.prs.goingmobile.services.TransactionService;
 public class ClientController {
 
 	@Autowired
-	private ClientService clientService;
+	private ClientServiceIFace clientService;
 	
 	@Autowired
-	private GpxService gpxServ;
+	private GpxServiceIFace gpxServ;
 	
 	@Autowired
-	private TransactionService transServ;
+	private TransactionServiceIFace transServ;
 	
 	@Autowired
-	private PartnerService partnerService;
+	private PartnerServiceIface partnerService;
 	
 
 
-	public ClientService getClientService() {
+	public ClientServiceIFace getClientService() {
 		return clientService;
 	}
 
 
-	public void setClientService(ClientService clientService) {
+	public void setClientService(ClientServiceIFace clientService) {
 		this.clientService = clientService;
 	}
 
 
-	public GpxService getGpxServ() {
+	public GpxServiceIFace getGpxServ() {
 		return gpxServ;
 	}
 
 
-	public void setGpxServ(GpxService gpxServ) {
+	public void setGpxServ(GpxServiceIFace gpxServ) {
 		this.gpxServ = gpxServ;
 	}
 
 
-	public PartnerService getPartnerService() {
+	public PartnerServiceIface getPartnerService() {
 		return partnerService;
 	}
 
 
-	public void setPartnerService(PartnerService partnerService) {
+	public void setPartnerService(PartnerServiceIface partnerService) {
 		this.partnerService = partnerService;
 	}
 
@@ -82,43 +83,45 @@ public class ClientController {
 
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String userLogin(@ModelAttribute("user") Client user, Model model, Principal principal) {
+	public String userLogin(@ModelAttribute("user") UserInterface user, Model model, Principal principal) {
 
 		
 		if (null != principal) {
 			User activeUser = (User) ((Authentication) principal).getPrincipal();
-			user = clientService.fetchJoinAll(activeUser.getUsername());
-	
-			GrantedAuthority ga = new SimpleGrantedAuthority("ROLE_CLIENT");
 			
-			if (!activeUser.getAuthorities().contains(ga)) {
+	
+			GrantedAuthority roleClient = new SimpleGrantedAuthority("ROLE_CLIENT");
+			GrantedAuthority rolePartner = new SimpleGrantedAuthority("ROLE_PARTNER");
+			
+			if (activeUser.getAuthorities().contains(rolePartner)) {
 				Partner part = partnerService.fetchAll(activeUser.getUsername());
-				if (null == part) { // Just Debugging if DB doesn't contain a partner
-					part = new Partner();
-				}
 				model.addAttribute("user", part);
 				model.addAttribute("omega", "Commerçant");
 				//logger.info("USER ================>"+part.toString());
 			//	logger.info("ADRESSES ================>"+user.getAddresseses().toString());
 				logger.info("AUTH ================>"+activeUser.getAuthorities());
+				logger.info("PARTNER ================>"+part.toString());
 				return "redirect:/partner/offers";
 			}
 			
-			if (null == user) {user = new Client();} // again, just debugging
+			if (activeUser.getAuthorities().contains(roleClient)) {
+			user = clientService.fetchJoinAll(activeUser.getUsername());
 			model.addAttribute("user", user);
 			logger.info("USER ================>"+user.toString());
-			logger.info("ADRESSES ================>"+user.getAddresseses().toString());
+			//logger.info("ADRESSES ================>"+user.getAddresseses().toString());
 			logger.info("AUTH ================>"+activeUser.getAuthorities());
 			
 
-			logger.info("Journey ================>"+user.getJourneyses());
+			//logger.info("Journey ================>"+user.getJourneyses());
+			
+			model.addAttribute("pageTitle", "GoingMobile : Regardez vos trajets");
+			return "redirect:/user/journeys";
+			
+			}
+			
+			
 		}
-		// httpSess.setAttribute("user", user);
-
-		model.addAttribute("pageTitle", "GoingMobile : Regardez vos trajets");
-		
-
-		return "redirect:/user/journeys";
+		return "redirect:/";
 	}
 	
 
@@ -163,12 +166,12 @@ public class ClientController {
 		return "journeys";
 	}
 	
-	public TransactionService getTransServ() {
+	public TransactionServiceIFace getTransServ() {
 		return transServ;
 	}
 
 
-	public void setTransServ(TransactionService transServ) {
+	public void setTransServ(TransactionServiceIFace transServ) {
 		this.transServ = transServ;
 	}
 

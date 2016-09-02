@@ -3,17 +3,26 @@
 	<div class="col-md-12">
 
 		<div class="jumbotron">
-		<form th:action="@{/partner/doTransaction}">
+		<form th:action="@{/partner/doTransaction}" th:object="${transactionWrapper}" method="post">
+			
 			<p><span class="formField"></span>Utilisateur Client : <span class="formField">
-			<input type="text" name="clientUser"></input>
+			<input type="text" th:field="*{username}"></input>
 			</span></p>
 			
 			<p><span class="formField">Password : </span><span class="formField">
-			<input type="password" name="clientPass"></input>
+			<input type="password" th:field="*{password}"></input>
 			</span></p>
 			
 			<p><span class="formField">Nombre de points :  </span><span class="formField">
-			<input type="text" name="pointsEngaged"></input>
+			<input type="text" th:field="*{transaction.gmPointsEngaged}"></input>
+			</span></p>
+			
+			<p><span class="formField">Description :  </span><span class="formField">
+			<input type="textarea" th:field="*{transaction.descriptionTransaction}"></input>
+			</span></p>
+			
+			<p><span class="formField">Commentaire :  </span><span class="formField">
+			<input type="textarea" th:field="*{transaction.commentPartner}"></input>
 			</span></p>
 		
 		<p><span class="formField"></span><span class="formField">
