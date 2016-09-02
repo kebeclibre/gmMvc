@@ -9,7 +9,7 @@ import lcs.prs.goingmobile.entities.Transaction;
 import lcs.prs.goingmobile.repositories.TransactionRepo;
 
 @Service
-public class TransactionService {
+public class TransactionService implements ServiceIFace {
 
 	@Autowired
 	private TransactionRepo repo;
@@ -28,6 +28,10 @@ public class TransactionService {
 	
 	public Set<Transaction> fetchJoinByPartnerId(int id) {
 		return repo.joinFetchAllByPartnerId(id);
+	}
+	
+	public void save(Transaction transaction) {
+		repo.save(transaction);
 	}
 	
 	

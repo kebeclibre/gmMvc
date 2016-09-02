@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -25,7 +24,7 @@ import pt.karambola.gpx.util.GpxRouteUtils;
 import pt.karambola.gpx.util.GpxTrackUtils;
 
 @Service
-public class GpxService {
+public class GpxService implements ServiceIFace {
 	
 	@Autowired
 	GpxParser parser;

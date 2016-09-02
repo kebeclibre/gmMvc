@@ -48,16 +48,38 @@ public class ClientController {
 	
 
 
-	private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
-
-	public IServiceRepo<Client, Integer> getService() {
+	public ClientService getClientService() {
 		return clientService;
 	}
 
 
-	public void setService(ClientService service) {
-		this.clientService = service;
+	public void setClientService(ClientService clientService) {
+		this.clientService = clientService;
 	}
+
+
+	public GpxService getGpxServ() {
+		return gpxServ;
+	}
+
+
+	public void setGpxServ(GpxService gpxServ) {
+		this.gpxServ = gpxServ;
+	}
+
+
+	public PartnerService getPartnerService() {
+		return partnerService;
+	}
+
+
+	public void setPartnerService(PartnerService partnerService) {
+		this.partnerService = partnerService;
+	}
+
+
+	private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
+
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String userLogin(@ModelAttribute("user") Client user, Model model, Principal principal) {

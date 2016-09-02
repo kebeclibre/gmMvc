@@ -9,10 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lcs.prs.goingmobile.entities.Client;
 import lcs.prs.goingmobile.entities.Journey;
+import lcs.prs.goingmobile.entities.Partner;
+import lcs.prs.goingmobile.exceptions.InsufficientFundsException;
+import lcs.prs.goingmobile.helperclasses.TransactionWrapper;
 import lcs.prs.goingmobile.repositories.ClientRepoJpa;
 
 @Service("clientService")
-
 public class ClientService implements IServiceRepo<Client, Integer> {
 
 	@Autowired
@@ -21,6 +23,17 @@ public class ClientService implements IServiceRepo<Client, Integer> {
 	@Autowired
 	private JourneyService journeyService;
 	
+	@Autowired
+	private TransactionService transactionService;
+	
+	public TransactionService getTransactionService() {
+		return transactionService;
+	}
+
+	public void setTransactionService(TransactionService transactionService) {
+		this.transactionService = transactionService;
+	}
+
 	public JourneyService getJourneyService() {
 		return journeyService;
 	}
@@ -116,6 +129,25 @@ public class ClientService implements IServiceRepo<Client, Integer> {
 		
 		return managed;
 		
+	}
+	
+	public Client getClientWithCredentials(String username, String password) {
+		return repo.checkClientCredentials(username, password);
+	}
+	
+	@Transactional(rollbackFor=InsufficientFundsException.class)
+	public void proceedTransaction(Client client, Partner part, TransactionWrapper transactionWrapper) {//throws InsufficientFundsException {
+		if (client.getGmPointsHistoryCumul() < transactionWrapper.getTransaction().getGmPointsEngaged()) {
+			
+			//throw new InsufficientFundsException();
+		} else {
+			client.setGmPointsHistoryCumul(client.getGmPointsHistoryCumul()-(float)transactionWrapper.getTransaction().getGmPointsEngaged());
+			
+			transactionWrapper.getTransaction().setClients(client);
+			transactionWrapper.getTransaction().setPartners(part);
+			repo.save(client);
+			transactionService.save(transactionWrapper.getTransaction());
+		}
 	}
 
 

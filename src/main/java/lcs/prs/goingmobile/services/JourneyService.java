@@ -9,7 +9,7 @@ import lcs.prs.goingmobile.entities.Journey;
 import lcs.prs.goingmobile.repositories.JourneyRepo;
 
 @Service
-public class JourneyService {
+public class JourneyService implements ServiceIFace {
 
 	@Autowired
 	private JourneyRepo journeyRepo;

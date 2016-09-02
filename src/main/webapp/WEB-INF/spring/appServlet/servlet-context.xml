@@ -3,6 +3,7 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
 		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 		http://www.springframework.org/schema/beans 
@@ -12,7 +13,9 @@
 		http://www.springframework.org/schema/data/jpa
 		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
 		http://www.springframework.org/schema/security
-		http://www.springframework.org/schema/security/spring-security.xsd"
+		http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
@@ -20,7 +23,7 @@
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
-
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 
 	<!-- Handles HTTP GET requests fo"S:/David/Hibou/Livrable.Laboratoire.JavaEE.2016/Compléments 
@@ -40,7 +43,7 @@
 	<!-- <beans:property name="suffix" value=".jsp" /> -->
 	<!-- </beans:bean> -->
 
-	<context:component-scan base-package="lcs.prs.goingmobile" />
+	<context:component-scan base-package="lcs.prs.goingmobile.services,lcs.prs.goingmobile.controllers" />
 
 
 	<beans:bean id="templateResolver"

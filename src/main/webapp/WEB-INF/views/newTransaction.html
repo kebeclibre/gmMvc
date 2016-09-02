@@ -1,0 +1,26 @@
+<div layout:decorator="masterPages/masterIncludes"
+	layout:fragment="content">
+	<div class="col-md-12">
+
+		<div class="jumbotron">
+		<form th:action="@{/partner/doTransaction}">
+			<p><span class="formField"></span>Utilisateur Client : <span class="formField">
+			<input type="text" name="clientUser"></input>
+			</span></p>
+			
+			<p><span class="formField">Password : </span><span class="formField">
+			<input type="password" name="clientPass"></input>
+			</span></p>
+			
+			<p><span class="formField">Nombre de points :  </span><span class="formField">
+			<input type="text" name="pointsEngaged"></input>
+			</span></p>
+		
+		<p><span class="formField"></span><span class="formField">
+			<input type="submit" value="Procéder"></input>
+			</span></p>
+		</form>
+				
+		</div>
+	</div>
+</div>
