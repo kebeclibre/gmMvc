@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import lcs.prs.goingmobile.entities.Client;
+
 @Repository
 public interface AgentRepo<T> {
 
@@ -19,4 +21,6 @@ public interface AgentRepo<T> {
 	void deleteRole(String username);
 	
 	 T findByUsername(String username);
+	 
+	 public T joinFetchAllById(int id);
 }

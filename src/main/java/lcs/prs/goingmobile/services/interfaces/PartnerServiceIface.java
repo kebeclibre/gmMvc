@@ -8,5 +8,6 @@ public interface PartnerServiceIface extends IServiceRepo<Partner, Integer>{
 	void save(Partner element);
 
 	Partner fetchAll(String username);
+	
 
 }

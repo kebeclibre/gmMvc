@@ -2,6 +2,7 @@ package lcs.prs.goingmobile.controllers;
 
 import java.security.Principal;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,6 @@ import lcs.prs.goingmobile.entities.Transaction;
 import lcs.prs.goingmobile.interfaces.UserInterface;
 import lcs.prs.goingmobile.services.interfaces.ClientServiceIFace;
 import lcs.prs.goingmobile.services.interfaces.GpxServiceIFace;
-import lcs.prs.goingmobile.services.interfaces.IServiceRepo;
 import lcs.prs.goingmobile.services.interfaces.PartnerServiceIface;
 import lcs.prs.goingmobile.services.interfaces.TransactionServiceIFace;
 
@@ -82,47 +82,7 @@ public class ClientController {
 	private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
 
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String userLogin(@ModelAttribute("user") UserInterface user, Model model, Principal principal) {
-
-		
-		if (null != principal) {
-			User activeUser = (User) ((Authentication) principal).getPrincipal();
-			
 	
-			GrantedAuthority roleClient = new SimpleGrantedAuthority("ROLE_CLIENT");
-			GrantedAuthority rolePartner = new SimpleGrantedAuthority("ROLE_PARTNER");
-			
-			if (activeUser.getAuthorities().contains(rolePartner)) {
-				Partner part = partnerService.fetchAll(activeUser.getUsername());
-				model.addAttribute("user", part);
-				model.addAttribute("omega", "Commerçant");
-				//logger.info("USER ================>"+part.toString());
-			//	logger.info("ADRESSES ================>"+user.getAddresseses().toString());
-				logger.info("AUTH ================>"+activeUser.getAuthorities());
-				logger.info("PARTNER ================>"+part.toString());
-				return "redirect:/partner/offers";
-			}
-			
-			if (activeUser.getAuthorities().contains(roleClient)) {
-			user = clientService.fetchJoinAll(activeUser.getUsername());
-			model.addAttribute("user", user);
-			logger.info("USER ================>"+user.toString());
-			//logger.info("ADRESSES ================>"+user.getAddresseses().toString());
-			logger.info("AUTH ================>"+activeUser.getAuthorities());
-			
-
-			//logger.info("Journey ================>"+user.getJourneyses());
-			
-			model.addAttribute("pageTitle", "GoingMobile : Regardez vos trajets");
-			return "redirect:/user/journeys";
-			
-			}
-			
-			
-		}
-		return "redirect:/";
-	}
 	
 
 	@ModelAttribute("user")

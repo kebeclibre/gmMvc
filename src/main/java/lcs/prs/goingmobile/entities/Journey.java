@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "journeys", catalog = "goingmobile")
-public class Journey implements java.io.Serializable {
+public class Journey implements java.io.Serializable, Comparable<Journey> {
 
 	private Integer id;
 	private Client clients;
@@ -212,6 +212,14 @@ public class Journey implements java.io.Serializable {
 
 	public void setIsPublic(boolean isPublic) {
 		this.isPublic = isPublic;
+	}
+
+	@Override
+	public int compareTo(Journey o) {
+		if (o.getAddedDate().equals(this.getAddedDate())) {
+			return (int) (o.getKilometers() - this.getKilometers());
+		}
+		return o.getAddedDate().compareTo(this.getAddedDate());
 	}
 
 }

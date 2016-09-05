@@ -1,12 +1,18 @@
 <div layout:decorator="masterPages/masterIncludes"
 	layout:fragment="content">
 	<div class="col-md-12">
-
+	
 		<div class="jumbotron">
+		
+		
 		<form th:action="@{/partner/doTransaction}" th:object="${transactionWrapper}" method="post">
 			
+			<p><span class="formField"></span>Rechercher Username : <span class="formField">
+			<input id="search" type="text"></input>
+			</span></p>
+			
 			<p><span class="formField"></span>Utilisateur Client : <span class="formField">
-			<input type="text" th:field="*{username}"></input>
+			<select id="ajaxUsername" type="text" th:field="*{username}"></select>
 			</span></p>
 			
 			<p><span class="formField">Password : </span><span class="formField">
@@ -32,4 +38,5 @@
 				
 		</div>
 	</div>
+	<script type="text/javascript" th:src="@{/resources/userXp.js}"></script>
 </div>

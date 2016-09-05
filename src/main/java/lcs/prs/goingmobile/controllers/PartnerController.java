@@ -74,11 +74,12 @@ public class PartnerController {
 			model.addAttribute("transactionStatus", "La transaction a échoué : Utilisateur non reconnu");
 			ex.printStackTrace();
 			return "transactions";
-		}
+		} 
 		
 		
 		Set<Transaction> transactions = transServ.fetchJoinByPartnerId(part.getId());
-		
+		part=partnerService.findById(part.getId());
+		model.addAttribute("user", part);
 		model.addAttribute("transactions", transactions);
 		model.addAttribute("transactionStatus", "Transaction réussie entre "+part.getUsername()+" et "+client.getUsername()+" pour "+transWrapper.getTransaction().getGmPointsEngaged());
 		

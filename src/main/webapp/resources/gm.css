@@ -1,5 +1,7 @@
 body {
-color : #2d62ff;
+/* color : #2d62ff; */
+color:black;
+
 }
 
 footer {
@@ -54,4 +56,12 @@ td {
 	border-bottom: 5px solid #ddd;
 	padding:10px;
 	margin-bottom:20px;
+}
+
+p {
+	color:black;
+}
+
+h4 {
+	font-size:x-large;
 }

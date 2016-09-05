@@ -29,8 +29,8 @@ public class PartnerService implements IServiceRepo<Partner, Integer>, PartnerSe
 	}
 
 	@Override
-	public void findById(Integer key) {
-		// TODO Auto-generated method stub
+	public Partner findById(Integer key) {
+		return repo.joinFetchAllById(key);
 		
 	}
 	

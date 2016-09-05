@@ -7,6 +7,8 @@
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous"></link>
 <link rel="stylesheet" th:href="@{/resources/gm.css}"></link>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 </head>
 
@@ -28,7 +30,9 @@
 									class="icon-bar"></span>
 							</button>
 							<a class="navbar-brand" th:href="@{/}">Going Mobile</a>
-							<ul class="nav navbar-nav"><li><a href="#" th:text="${'Univers '+ session.omega}"></a></li></ul>
+							<ul class="nav navbar-nav">
+								<li><a href="#" th:text="${'Univers '+ session.omega}"></a></li>
+							</ul>
 						</div>
 						<div id="navbar" class="navbar-collapse collapse">
 							<ul class="nav navbar-nav">
@@ -40,28 +44,28 @@
 							</ul>
 							<ul class="nav navbar-nav pull-right">
 
-								<li><a href="#">A propos de nous</a></li>
-								
-<!-- 								<ul th:switch="${user}"> -->
-<!-- 									<li th:case="null"> -->
-<!-- 											<a th:href="@{/generic/signup}">S'inscrire</a> -->
-<!-- 									</li> -->
-<!-- 									</ul> -->
-<!-- 									<ul th:case="*"> -->
-<!-- 										<li ><a th:text="${'Bonjour '+user.getUsername()}" th:href="@{/user/profile}"></a></li> -->
-<!-- 										<li class=""><a th:href="@{/generic/logout}">Logout</a></li> -->
-																
-<!-- 								</ul> -->
-								
-								<li th:switch="${session.user}">
-									<a th:case="null" th:href="@{/generic/signup}">S'inscrire</a>
-					
-									<a th:case="*" th:text="${'Bonjour '+session.user.getUsername()}" th:href="@{/common/currentProfile}"></a>
-		
-								
-								</li>
+								<li><a th:href="@{/about}">A propos de nous</a></li>
 
-								<li th:if="${session.user != null}" ><a th:href="@{/logout}">Logout</a></li>
+								<!-- 								<ul th:switch="${user}"> -->
+								<!-- 									<li th:case="null"> -->
+								<!-- 											<a th:href="@{/generic/signup}">S'inscrire</a> -->
+								<!-- 									</li> -->
+								<!-- 									</ul> -->
+								<!-- 									<ul th:case="*"> -->
+								<!-- 										<li ><a th:text="${'Bonjour '+user.getUsername()}" th:href="@{/user/profile}"></a></li> -->
+								<!-- 										<li class=""><a th:href="@{/generic/logout}">Logout</a></li> -->
+
+								<!-- 								</ul> -->
+
+								<li th:switch="${session.user}"><a th:case="null"
+									th:href="@{/generic/signup}">S'inscrire</a> <a th:case="*"
+									th:text="${'Bonjour '+session.user.getUsername()}"
+									th:href="@{/common/currentProfile}"></a></li>
+
+								<li th:if="${session.user != null}">
+										<a href="#" onclick="document.getElementById('logoutForm').submit();">Logout</a>
+									</li><form id="logoutForm"
+										method="post" th:action="@{/logout}"></form>
 							</ul>
 						</div>
 					</div>
@@ -70,7 +74,7 @@
 		</div>
 
 	</header>
-	
+
 </div>
 
 <!-- 		End Include -->

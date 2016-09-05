@@ -23,5 +23,7 @@ public interface ClientServiceIFace extends IServiceRepo<Client, Integer>{
 	Client getClientWithCredentials(String username, String password);
 
 	void proceedTransaction(Client client, Partner part, TransactionWrapper transactionWrapper) throws InsufficientFundsException;
+	
+	String getUsernamesLike(String like);
 
 }

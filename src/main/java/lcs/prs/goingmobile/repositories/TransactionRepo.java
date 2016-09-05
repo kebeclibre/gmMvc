@@ -16,14 +16,16 @@ public interface TransactionRepo extends JpaRepository<Transaction, Integer>{
 	@Query("select t from Transaction t "
 			+ "left join fetch t.partners as p "
 			+ "left join fetch t.clients as c "
-			+ "where c.id=?1")
+			+ "where c.id=?1 "
+			+ "order by t.transactionDate desc")
 	Set<Transaction> joinFetchAllByClientId(int id);
 	
 	
 	@Query("select t from Transaction t "
 			+ "left join fetch t.partners as p "
 			+ "left join fetch t.clients as c "
-			+ "where p.id=?1")
+			+ "where p.id=?1 "
+			+ "order by t.transactionDate desc")
 	Set<Transaction> joinFetchAllByPartnerId(int id);
 	
 }

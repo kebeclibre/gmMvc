@@ -15,4 +15,11 @@ public interface PartnerRepoJpa extends JpaRepository<Partner, Integer>,AgentRep
 			+ "left join fetch p.partneradses as o "
 			+ "where p.username=?1")
 	public Partner joinFetchAll(String username);
+
+	@Query("select p from Partner p "
+			+ "left join fetch p.addresseses as a "
+			+ "left join fetch p.partneradses as o "
+			+ "where p.id=?1")
+	public Partner joinFetchAllById(int id);
+
 }

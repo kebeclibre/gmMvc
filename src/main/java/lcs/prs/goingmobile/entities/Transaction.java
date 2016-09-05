@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "transactions", catalog = "goingmobile")
-public class Transaction implements java.io.Serializable {
+public class Transaction implements java.io.Serializable,Comparable<Transaction> {
 
 	private Integer id;
 	private Client clients;
@@ -127,6 +127,11 @@ public class Transaction implements java.io.Serializable {
 
 	public void setTransactionDate(Date transactionDate) {
 		this.transactionDate = transactionDate;
+	}
+
+	@Override
+	public int compareTo(Transaction arg0) {
+		return arg0.getTransactionDate().compareTo(this.getTransactionDate());
 	}
 
 }

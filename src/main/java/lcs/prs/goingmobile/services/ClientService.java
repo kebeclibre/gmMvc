@@ -1,6 +1,7 @@
 package lcs.prs.goingmobile.services;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import lcs.prs.goingmobile.exceptions.InsufficientFundsException;
 import lcs.prs.goingmobile.helperclasses.TransactionWrapper;
 import lcs.prs.goingmobile.repositories.ClientRepoJpa;
 import lcs.prs.goingmobile.services.interfaces.ClientServiceIFace;
-import lcs.prs.goingmobile.services.interfaces.IServiceRepo;
 import lcs.prs.goingmobile.services.interfaces.JourneyServiceIFace;
 import lcs.prs.goingmobile.services.interfaces.TransactionServiceIFace;
 
@@ -68,8 +68,8 @@ public class ClientService implements ClientServiceIFace {
 	}
 
 	@Override
-	public void findById(Integer key) {
-		// TODO Auto-generated method stub
+	public Client findById(Integer key) {
+		return repo.joinFetchAllById(key);
 		
 	}
 
@@ -161,6 +161,21 @@ public class ClientService implements ClientServiceIFace {
 			repo.save(client);
 			transactionService.save(transactionWrapper.getTransaction());
 		}
+	}
+
+	@Override
+	public String getUsernamesLike(String like) {
+		List<Client> listMatches = repo.getClientsLike(like);
+		StringBuilder sb = new StringBuilder();
+		for (Client cli : listMatches) {
+			sb.append(cli.getUsername());
+			sb.append("===");
+		}
+		
+		if (sb.length() > 3 ) {
+		sb.delete(sb.length()-3, sb.length()); }
+		
+		return sb.toString();
 	}
 
 

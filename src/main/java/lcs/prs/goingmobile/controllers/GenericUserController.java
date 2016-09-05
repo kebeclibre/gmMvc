@@ -29,6 +29,9 @@ public class GenericUserController {
 	@Autowired
 	private JourneyServiceIFace journeyServ;
 	
+	@Autowired
+	private ClientServiceIFace clientService;
+	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String displayForm(Model model) {
 		
@@ -58,6 +61,14 @@ public class GenericUserController {
 		String result ="";
 		System.out.println("CALL ==========> OK");
 		return journeyServ.getTrackRaw(trackid);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getUsernames",method = RequestMethod.GET)
+	public String getUsernames(Model model, @RequestParam("partialName") String partialUname) {
+		System.out.println("CALL LIKE OK");
+		return serviceClient.getUsernamesLike(partialUname);
+		
 	}
 	
 

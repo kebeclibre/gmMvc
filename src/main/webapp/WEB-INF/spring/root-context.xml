@@ -28,39 +28,45 @@
 	</beans:bean>
 
 
-	<security:http auto-config="true" use-expressions="true" >
-		<security:intercept-url pattern="/user/login"
-			access="hasRole('ROLE_CLIENT') OR hasRole('ROLE_PARTNER')"  />
-<!-- 			access="hasAnyRole('ROLE_CLIENT','ROLE_PARTNER')" /> -->
-	
+	<security:http use-expressions="true">
+		<security:intercept-url pattern="/login"
+			access="hasRole('ROLE_CLIENT') OR hasRole('ROLE_PARTNER')" />
+		<!-- access="hasAnyRole('ROLE_CLIENT','ROLE_PARTNER')" /> -->
+
 		<security:intercept-url pattern="/user/**"
 			access="hasRole('ROLE_CLIENT')" />
-			
+
+		<security:intercept-url pattern="/partner/**"
+			access="hasRole('ROLE_PARTNER')" />
+
 		<security:form-login login-page="/"
-			default-target-url="/user/login" authentication-failure-url="/"
+			default-target-url="/login" authentication-failure-url="/"
 			username-parameter="username" password-parameter="password"
 			login-processing-url="/j_spring_security_check" />
 
+
+		<security:logout logout-url="/logout" logout-success-url="/" invalidate-session="true" />
 	</security:http>
 
-<!-- 	<security:http auto-config="true" pattern="/partner/**"> -->
-<!-- 		<security:intercept-url pattern="/partner/**" -->
-<!-- 			access="hasRole('ROLE_PARTNER')" /> -->
-<!-- 		<security:form-login login-page="/connectAsPartner" -->
-<!-- 			default-target-url="/partner/login" authentication-failure-url="/connectAsPartner" -->
-<!-- 			username-parameter="username" password-parameter="password" -->
-<!-- 			login-processing-url="/j_spring_security_check" /> -->
-<!-- 	</security:http> -->
+	<!-- <security:http auto-config="true" pattern="/partner/**"> -->
+	<!-- <security:intercept-url pattern="/partner/**" -->
+	<!-- access="hasRole('ROLE_PARTNER')" /> -->
+	<!-- <security:form-login login-page="/connectAsPartner" -->
+	<!-- default-target-url="/partner/login" authentication-failure-url="/connectAsPartner" -->
+	<!-- username-parameter="username" password-parameter="password" -->
+	<!-- login-processing-url="/j_spring_security_check" /> -->
+	<!-- </security:http> -->
 
 	<security:authentication-manager alias="authenticationManager"
 		erase-credentials="false">
-<!-- 		<security:authentication-provider> -->
-<!-- 			<security:user-service> -->
-<!-- 				<security:user name="lucas" password="lucas" -->
-<!-- 					authorities="ROLE_CLIENT" /> -->
-<!-- 				<security:user name="bob" password="bob" authorities="ROLE_PARTNER" /> -->
-<!-- 			</security:user-service> -->
-<!-- 		</security:authentication-provider> -->
+		<!-- <security:authentication-provider> -->
+		<!-- <security:user-service> -->
+		<!-- <security:user name="lucas" password="lucas" -->
+		<!-- authorities="ROLE_CLIENT" /> -->
+		<!-- <security:user name="bob" password="bob" authorities="ROLE_PARTNER" 
+			/> -->
+		<!-- </security:user-service> -->
+		<!-- </security:authentication-provider> -->
 
 		<security:authentication-provider>
 			<security:jdbc-user-service
@@ -75,7 +81,7 @@
 				data-source-ref="mainDataSource"
 				users-by-username-query="select username,password, isActive from partners where username=? and isActive=1"
 				authorities-by-username-query="select username, role from roles where username = ?"
-				role-prefix="ROLE_"  />
+				role-prefix="ROLE_" />
 		</security:authentication-provider>
 
 	</security:authentication-manager>
