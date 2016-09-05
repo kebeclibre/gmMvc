@@ -2,13 +2,11 @@ $("document").ready (
 	function () {
 		console.log("docReady" );
 	
-	var dynamicElement = $("#search");
+	var dynamicElement = $("#ajaxUsername");
 
-		dynamicElement.change(function () {
-			console.log("inChange" );
-			var data = dynamicElement.val();
-			var toMod = $("#ajaxUsername");
-			
+		dynamicElement.autocomplete({
+			source : function(request,response) {
+				var data = dynamicElement.val();
 				$.ajax({
 				url : "/goingmobile/generic/getUsernames",
 				dataType : "text",
@@ -17,14 +15,8 @@ $("document").ready (
 					partialName : data
 				},
 				success : function(data) {
-					var names = data.split("===");
-					for (var i = 0;i<names.length;i++) {
-						var newElem = $("<option></option>").val(names[i]).html(names[i]);
-						toMod.append(newElem);
-						
+					response( data.split("==="));
 					
-						}
-					console.log("End Loop" );
 
 					},
 					error : function(){
@@ -33,9 +25,12 @@ $("document").ready (
 					
 				
 				})
-		});
 
 
+			}
+		
+		}
+		)
 });
 		
 		

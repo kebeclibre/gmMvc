@@ -7,12 +7,12 @@
 		
 		<form th:action="@{/partner/doTransaction}" th:object="${transactionWrapper}" method="post">
 			
-			<p><span class="formField"></span>Rechercher Username : <span class="formField">
-			<input id="search" type="text"></input>
-			</span></p>
+<!-- 			<p><span class="formField"></span>Rechercher Username : <span class="formField"> -->
+<!-- 			<input id="search" type="text"></input> -->
+<!-- 			</span></p> -->
 			
 			<p><span class="formField"></span>Utilisateur Client : <span class="formField">
-			<select id="ajaxUsername" type="text" th:field="*{username}"></select>
+			<input id="ajaxUsername" type="text" th:field="*{username}"></input>
 			</span></p>
 			
 			<p><span class="formField">Password : </span><span class="formField">
