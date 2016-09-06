@@ -79,7 +79,8 @@ public class PartnerController {
 	}
 
 	@RequestMapping("/engageTransaction")
-	public String engageTransaction(Model model, @ModelAttribute("transactionWrapper") TransactionWrapper transWrapper) {
+	public String engageTransaction(Model model,
+			@ModelAttribute("transactionWrapper") TransactionWrapper transWrapper) {
 		return "newTransaction";
 	}
 
@@ -90,8 +91,8 @@ public class PartnerController {
 			@ModelAttribute("user") Partner part
 			) {
 			
-		String username = transWrapper.getUsername();
-		String password = transWrapper.getPassword();
+		String username = transWrapper.getClientUsername();
+		String password = transWrapper.getClientPass();
 
 		Client client = null;
 		
@@ -99,9 +100,13 @@ public class PartnerController {
 			client = clientService.getClientWithCredentials(username, password);
 			clientService.proceedTransaction(client,part , transWrapper);
 		} catch (InsufficientFundsException e) {
+			Set<Transaction> transactions = transServ.fetchJoinByPartnerId(part.getId());
+			model.addAttribute("transactions", transactions);
 			model.addAttribute("transactionStatus", "La transaction a échoué : fonds insuffisants");
 			return "transactions";
 		} catch (RuntimeException ex) {
+			Set<Transaction> transactions = transServ.fetchJoinByPartnerId(part.getId());
+			model.addAttribute("transactions", transactions);
 			model.addAttribute("transactionStatus", "La transaction a échoué : Utilisateur non reconnu");
 			ex.printStackTrace();
 			return "transactions";
@@ -109,8 +114,6 @@ public class PartnerController {
 		
 		
 		Set<Transaction> transactions = transServ.fetchJoinByPartnerId(part.getId());
-		part=partnerService.findById(part.getId());
-		model.addAttribute("user", part);
 		model.addAttribute("transactions", transactions);
 		model.addAttribute("transactionStatus", "Transaction réussie entre "+part.getUsername()+" et "+client.getUsername()+" pour "+transWrapper.getTransaction().getGmPointsEngaged());
 		

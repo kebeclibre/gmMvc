@@ -10,11 +10,11 @@
 
 			
 			<p><span class="formField"></span>Utilisateur Client : <span class="formField">
-			<input id="ajaxUsername" type="text" th:field="*{username}"></input>
+			<input id="ajaxUsername" type="text" th:field="${transactionWrapper.clientUsername}"></input>
 			</span></p>
 			
 			<p><span class="formField">Password : </span><span class="formField">
-			<input type="password" th:field="*{password}"></input>
+			<input type="password" th:field="${transactionWrapper.clientPass}"></input>
 			</span></p>
 			
 			<p><span class="formField">Nombre de points :  </span><span class="formField">

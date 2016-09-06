@@ -65,3 +65,14 @@ p {
 h4 {
 	font-size:x-large;
 }
+
+.loopOfferContainer {
+	display:flex;
+}
+
+.offerContainer {
+	margin:20px;
+	padding: 10px;
+	border: solid 1px;
+	border-radius: 25px;
+}

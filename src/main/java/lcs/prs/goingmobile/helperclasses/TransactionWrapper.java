@@ -5,25 +5,26 @@ import lcs.prs.goingmobile.entities.Transaction;
 public class TransactionWrapper {
 
 		private Transaction transaction;
-		private String username;
-		private String password;
-		
+		private String clientUsername;
+		private String clientPass;
 		public Transaction getTransaction() {
 			return transaction;
 		}
 		public void setTransaction(Transaction transaction) {
 			this.transaction = transaction;
 		}
-		public String getUsername() {
-			return username;
+		public String getClientUsername() {
+			return clientUsername;
 		}
-		public void setUsername(String username) {
-			this.username = username;
+		public void setClientUsername(String clientUsername) {
+			this.clientUsername = clientUsername;
 		}
-		public String getPassword() {
-			return password;
+		public String getClientPass() {
+			return clientPass;
 		}
-		public void setPassword(String password) {
-			this.password = password;
+		public void setClientPass(String clientPass) {
+			this.clientPass = clientPass;
 		}
+		
+	
 }

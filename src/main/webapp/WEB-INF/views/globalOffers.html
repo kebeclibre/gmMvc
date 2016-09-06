@@ -2,25 +2,27 @@
 	layout:fragment="content">
 	<div class="col-md-12">
 		<div class="jumbotron">
-		<div th:each="item : ${allOffer}">
-		
-		<div class="pull-sm-left offerContainer">
-			<p>
-			Annonceur : <span th:text="${item.partners.username}"></span>
-			</p>
-			
-						<p>
-			Nom : <span th:text="${item.adName}"></span>
-			</p>
-			
-			<p>
-			Description : <span th:text="${item.adName}"></span>
-			</p>
-			
-		
-		</div>
-		
+			<div class="loopOfferContainer" >
 				
-		
+					<div class="pull-sm-left offerContainer" th:each="item : ${allOffer}">
+						<p>
+							Annonceur : <span th:text="${item.partners.username}"></span>
+						</p>
+
+						<p>
+							Nom : <span th:text="${item.adName}"></span>
+						</p>
+
+						<p>
+							Description : <span th:text="${item.adName}"></span>
+						</p>
+
+
+					</div>
+				
+
+
+			</div>
 		</div>
-		</div></div></div>
+	</div>
+</div>
