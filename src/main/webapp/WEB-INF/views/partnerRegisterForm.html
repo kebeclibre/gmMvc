@@ -1,0 +1,69 @@
+
+<div layout:decorator="masterPages/masterIncludes"
+	layout:fragment="content">
+	<div class="col-md-12">
+		<div class="jumbotron">
+			<div class="container">
+
+				<h3>Inscrivez Vous</h3>
+				<form th:action="@{/generic/registerPartner}" th:object="${genericPartner}"
+					method="post">
+					<table>
+						<tr>
+							<td>Utilisateur</td>
+							<td><input type="text" th:field="*{username}"></input></td>
+							<td th:if="${#fields.hasErrors('username')}"
+								th:errors="*{username}" class="text-danger">Format invalide</td>
+						</tr>
+
+						<tr>
+							<td>Password</td>
+							<td><input type="password" th:field="*{password}"></input></td>
+
+							<td th:if="${#fields.hasErrors('password')}"
+								th:errors="*{password}" class="text-danger">Format invalide</td>
+
+						</tr>
+						<tr>
+							<td>Nom de l'organisation</td>
+							<td><input type="text" th:field="*{organizationName}"></input></td>
+
+							<td th:if="${#fields.hasErrors('organizationName')}"
+								th:errors="*{organizationName}" class="text-danger">Format
+								invalide</td>
+						</tr>
+
+						<tr>
+							<td>Description de l'organisation</td>
+							<td><input type="text" th:field="*{organizationDescription}"></input></td>
+							<td th:if="${#fields.hasErrors('organizationDescription')}"
+								th:errors="*{organizationDescription}" class="text-danger">Format invalide</td>
+						</tr>
+
+						<tr>
+							<td>E-mail</td>
+							<td><input type="text" th:field="*{email}"></input></td>
+							<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+								class="text-danger">Format invalide</td>
+						</tr>
+						
+						<tr>
+							<td>Numéro TVA</td>
+							<td><input type="text" th:field="*{vatNumber}"></input></td>
+							<td th:if="${#fields.hasErrors('vatNumber')}"
+								th:errors="*{vatNumber}" class="text-danger">Format invalide</td>
+						</tr>
+
+
+						<tr>
+							<td><input type="submit" value="Valider"></input></td>
+						</tr>
+					</table>
+
+				</form>
+
+			</div>
+		</div>
+
+	</div>
+</div>

@@ -19,6 +19,7 @@ import lcs.prs.goingmobile.services.interfaces.JourneyServiceIFace;
 import lcs.prs.goingmobile.services.interfaces.TransactionServiceIFace;
 
 @Service("clientService")
+@Transactional
 public class ClientService implements ClientServiceIFace {
 
 	@Autowired

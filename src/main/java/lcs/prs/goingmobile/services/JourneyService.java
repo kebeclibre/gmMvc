@@ -4,12 +4,14 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lcs.prs.goingmobile.entities.Journey;
 import lcs.prs.goingmobile.repositories.JourneyRepo;
 import lcs.prs.goingmobile.services.interfaces.JourneyServiceIFace;
 
 @Service
+@Transactional
 public class JourneyService implements ServiceIFace, JourneyServiceIFace {
 
 	@Autowired

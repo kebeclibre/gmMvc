@@ -1,15 +1,18 @@
 package lcs.prs.goingmobile.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lcs.prs.goingmobile.entities.Partner;
 import lcs.prs.goingmobile.repositories.PartnerRepoJpa;
 import lcs.prs.goingmobile.services.interfaces.IServiceRepo;
 import lcs.prs.goingmobile.services.interfaces.PartnerServiceIface;
 @Service("partnerService")
+@Transactional
 public class PartnerService implements IServiceRepo<Partner, Integer>, PartnerServiceIface{
 
 	@Autowired
@@ -25,7 +28,10 @@ public class PartnerService implements IServiceRepo<Partner, Integer>, PartnerSe
 	
 	@Override
 	public void save(Partner element) {
-		// TODO Auto-generated method stub
+		element.setIsActive(true);
+		element.setRegistrationDate(new Date());
+		repo.insertRole(element.getUsername(), "PARTNER");
+		repo.save(element);
 		
 	}
 

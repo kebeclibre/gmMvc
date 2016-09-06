@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import lcs.prs.goingmobile.entities.Client;
+import lcs.prs.goingmobile.entities.Partner;
 import lcs.prs.goingmobile.entities.PartnerAd;
 import lcs.prs.goingmobile.services.interfaces.ClientServiceIFace;
 import lcs.prs.goingmobile.services.interfaces.JourneyServiceIFace;
@@ -126,6 +127,28 @@ public class GenericUserController {
 		return "globalOffers";
 	}
 	
-
-
+	@RequestMapping("/partnerSignup")
+	public String partnerSignup (Model model, @ModelAttribute("genericPartner") Partner part) {
+		return "partnerRegisterForm";
+	}
+	
+	@ModelAttribute("genericPartner")
+	public Partner populateGenericPartner() {
+		return new Partner();
+	}
+	
+	@RequestMapping("/registerPartner")
+	public String registerPartner (Model model, @ModelAttribute("genericPartner") Partner part) {
+		//if (bindingResult.hasErrors()) {
+			//System.out.println("======================= IL Y A EU UNE ERREUR DE VALIDATION ======");
+		//	return "signUpForm";
+		//} else {
+			partnerService.save(part);
+			model.addAttribute("genericClient",part);
+			model.addAttribute("saveSucceed",true);
+			model.addAttribute("pageTitle", "GoingMobile : Votre compte a été créé");
+			return "home";
+		
+	}
+	
 }
