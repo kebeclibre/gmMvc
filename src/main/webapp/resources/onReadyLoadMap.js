@@ -36,7 +36,8 @@ $(document).ready(
 									mapTypeId : google.maps.MapTypeId.ROADMAP
 								};
 							
-							var controllerUrl = "/goingmobile/generic/getTrack";
+							var controllerUrl = contextRoot+"generic/getTrack";
+							console.log(contextRoot);
 							
 							var allMaps=$(".googleMap");
 							

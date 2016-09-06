@@ -1,10 +1,11 @@
 package lcs.prs.goingmobile.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-import lcs.prs.goingmobile.entities.Client;
 import lcs.prs.goingmobile.entities.Partner;
 
 @Transactional
@@ -21,5 +22,5 @@ public interface PartnerRepoJpa extends JpaRepository<Partner, Integer>,AgentRep
 			+ "left join fetch p.partneradses as o "
 			+ "where p.id=?1")
 	public Partner joinFetchAllById(int id);
-
+	
 }

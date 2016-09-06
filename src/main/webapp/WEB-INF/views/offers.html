@@ -1,6 +1,37 @@
 <div layout:decorator="masterPages/masterIncludes"
 	layout:fragment="content">
-	
-	PARTNER OFFERS
-	
+
+	<div class="col-md-12">
+
+		<div class="jumbotron">
+			<h3>Voir vos offres</h3>
+			<p th:text="${uploaded}"></p>
+			<div class="container">
+			<p th:text="${addOfferStatus}"></p>
+				<p>
+					<a th:href="@{/partner/addOffer}">Ajouter une offre</a>
+				</p>
+				<div class="journeyContainer"
+					th:if="${session.user.partneradses != null}">
+					
+						<div class="journeyData" th:each="item : ${session.user.partneradses}">
+						<p>
+						<h3 th:text="${item.titleAd}"></h3>
+						Date d'ajout : <span th:text="${item.addedDate}"></span>
+						</p>
+						<p>
+								Name : <span th:text="${item.adName}"></span>
+						</p>
+						<p>
+								Description : <span th:text="${item.descriptionAd}"></span>
+						</p>
+
+					</div>
+					
+					
+					
+					</div>
+			</div>
+		</div>
 	</div>
+</div>

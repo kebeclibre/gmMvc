@@ -1,0 +1,31 @@
+<div layout:decorator="masterPages/masterIncludes"
+	layout:fragment="content">
+	<div class="col-md-12">
+	
+		<div class="jumbotron">
+		
+		
+		<form th:action="@{/partner/processAddOffer}" th:object="${offer}" method="post">
+
+			<p><span class="formField"></span>Title : <span class="formField">
+			<input type="text" th:field="*{titleAd}"></input>
+			</span></p>
+			
+			<p><span class="formField">Name : </span><span class="formField">
+			<input type="text" th:field="*{adName}"></input>
+			</span></p>
+			
+			<p><span class="formField">Description :  </span><span class="formField">
+			<textarea th:field="*{descriptionAd}"></textarea>
+			</span></p>
+			
+		
+		<p><span class="formField"></span><span class="formField">
+			<input type="submit" value="Procéder"></input>
+			</span></p>
+		</form>
+				
+		</div>
+	</div>
+
+</div>

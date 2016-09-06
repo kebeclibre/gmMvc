@@ -1,5 +1,7 @@
 package lcs.prs.goingmobile.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import lcs.prs.goingmobile.entities.Client;
+import lcs.prs.goingmobile.entities.PartnerAd;
 import lcs.prs.goingmobile.services.interfaces.ClientServiceIFace;
-import lcs.prs.goingmobile.services.interfaces.IServiceRepo;
 import lcs.prs.goingmobile.services.interfaces.JourneyServiceIFace;
+import lcs.prs.goingmobile.services.interfaces.PartnerAdServiceIface;
+import lcs.prs.goingmobile.services.interfaces.PartnerServiceIface;
 
 @Controller
 @RequestMapping("/generic")
@@ -30,8 +34,51 @@ public class GenericUserController {
 	private JourneyServiceIFace journeyServ;
 	
 	@Autowired
-	private ClientServiceIFace clientService;
+	private PartnerServiceIface partnerService;
 	
+	@Autowired
+	private PartnerAdServiceIface partnerAdServ;
+	
+	public ClientServiceIFace getServiceClient() {
+		return serviceClient;
+	}
+
+
+	public void setServiceClient(ClientServiceIFace serviceClient) {
+		this.serviceClient = serviceClient;
+	}
+
+
+	public JourneyServiceIFace getJourneyServ() {
+		return journeyServ;
+	}
+
+
+	public void setJourneyServ(JourneyServiceIFace journeyServ) {
+		this.journeyServ = journeyServ;
+	}
+
+
+	public PartnerServiceIface getPartnerService() {
+		return partnerService;
+	}
+
+
+	public void setPartnerService(PartnerServiceIface partnerService) {
+		this.partnerService = partnerService;
+	}
+
+
+	public PartnerAdServiceIface getPartnerAdServ() {
+		return partnerAdServ;
+	}
+
+
+	public void setPartnerAdServ(PartnerAdServiceIface partnerAdServ) {
+		this.partnerAdServ = partnerAdServ;
+	}
+
+
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String displayForm(Model model) {
 		
@@ -69,6 +116,14 @@ public class GenericUserController {
 		System.out.println("CALL LIKE OK");
 		return serviceClient.getUsernamesLike(partialUname);
 		
+	}
+	
+	@RequestMapping("/viewAllOffers")
+	public String viewAllOffers(Model model) {
+		
+		List<PartnerAd> list = partnerAdServ.getAllAds();
+		model.addAttribute("allOffer", list );
+		return "globalOffers";
 	}
 	
 

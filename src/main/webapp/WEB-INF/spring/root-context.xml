@@ -38,6 +38,9 @@
 
 		<security:intercept-url pattern="/partner/**"
 			access="hasRole('ROLE_PARTNER')" />
+			
+			<security:intercept-url pattern="/common/**"
+			access="hasRole('ROLE_PARTNER') OR hasRole('ROLE_CLIENT')" />
 
 		<security:form-login login-page="/"
 			default-target-url="/login" authentication-failure-url="/"

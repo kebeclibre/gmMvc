@@ -1,0 +1,24 @@
+<div layout:decorator="masterPages/masterIncludes"
+	layout:fragment="content">
+	<div class="col-md-12">
+		<div class="jumbotron">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-offset-2 col-md-4">
+						<p>
+							Nom d'utilisateur : <span th:text="${otherUser.username}"></span>
+						</p>
+						<p>
+							E-mail : <span th:text="${otherUser.email}"></span>
+						</p>
+						
+							<img class="profilePicture"
+							th:src="${otherUser.profilePicture}"></img>
+						
+					</div>
+
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>

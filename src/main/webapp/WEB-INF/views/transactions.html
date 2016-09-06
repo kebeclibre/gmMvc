@@ -19,7 +19,7 @@
 					<div sec:authorize="hasRole('ROLE_CLIENT')">
 						<h4>
 							Avec : <a th:text="${item.partners.username}"
-								th:href="@{/generic/viewProfile(cat=partner,id=${item.partners.id})}"></a>
+								th:href="@{/common/viewProfile(cat=partner,id=${item.partners.id})}"></a>
 						</h4>
 
 					</div>
@@ -28,7 +28,7 @@
 					<div sec:authorize="hasRole('ROLE_PARTNER')">
 						<h4>
 							Avec : <a th:text="${item.clients.username}"
-								th:href="@{/generic/viewProfile(cat=client,id=${item.clients.id})}"></a>
+								th:href="@{/common/viewProfile(cat=client,id=${item.clients.id})}"></a>
 						</h4>
 					</div>
 

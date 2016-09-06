@@ -1,9 +1,10 @@
 package lcs.prs.goingmobile.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lcs.prs.goingmobile.entities.Client;
 import lcs.prs.goingmobile.entities.Partner;
 import lcs.prs.goingmobile.repositories.PartnerRepoJpa;
 import lcs.prs.goingmobile.services.interfaces.IServiceRepo;
@@ -42,6 +43,10 @@ public class PartnerService implements IServiceRepo<Partner, Integer>, PartnerSe
 	@Override
 	public Partner fetchAll(String username) {
 		return repo.joinFetchAll(username);
+	}
+	
+	public List<Partner> getAllPartners() {
+		return repo.findAll();
 	}
 
 }

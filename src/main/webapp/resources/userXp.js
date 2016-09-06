@@ -8,7 +8,7 @@ $("document").ready (
 			source : function(request,response) {
 				var data = dynamicElement.val();
 				$.ajax({
-				url : "/goingmobile/generic/getUsernames",
+				url : contextRoot+"generic/getUsernames",
 				dataType : "text",
 				type : "get",
 				data : {

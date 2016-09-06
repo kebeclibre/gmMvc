@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import lcs.prs.goingmobile.entities.Client;
 import lcs.prs.goingmobile.entities.Partner;
+import lcs.prs.goingmobile.entities.PartnerAd;
 import lcs.prs.goingmobile.entities.Transaction;
 import lcs.prs.goingmobile.exceptions.InsufficientFundsException;
 import lcs.prs.goingmobile.helperclasses.TransactionWrapper;
 import lcs.prs.goingmobile.services.interfaces.ClientServiceIFace;
+import lcs.prs.goingmobile.services.interfaces.PartnerAdServiceIface;
 import lcs.prs.goingmobile.services.interfaces.PartnerServiceIface;
 import lcs.prs.goingmobile.services.interfaces.TransactionServiceIFace;
 
@@ -32,6 +34,35 @@ public class PartnerController {
 	
 	@Autowired
 	private TransactionServiceIFace transServ;
+	
+	@Autowired
+	private PartnerAdServiceIface partnerAdServ;
+
+	public ClientServiceIFace getClientService() {
+		return clientService;
+	}
+
+	public void setClientService(ClientServiceIFace clientService) {
+		this.clientService = clientService;
+	}
+
+	public TransactionServiceIFace getTransServ() {
+		return transServ;
+	}
+
+	public void setTransServ(TransactionServiceIFace transServ) {
+		this.transServ = transServ;
+	}
+
+	public PartnerAdServiceIface getPartnerAdServ() {
+		return partnerAdServ;
+	}
+
+	public void setPartnerAdServ(PartnerAdServiceIface partnerAdServ) {
+		this.partnerAdServ = partnerAdServ;
+	}
+
+	@Autowired
 
 	public PartnerServiceIface getPartnerService() {
 		return partnerService;
@@ -86,14 +117,6 @@ public class PartnerController {
 		return "transactions";
 	}
 	
-	public ClientServiceIFace getClientService() {
-		return clientService;
-	}
-
-	public void setClientService(ClientServiceIFace clientService) {
-		this.clientService = clientService;
-	}
-
 	@ModelAttribute("transactionWrapper")
 	public TransactionWrapper providerTransactionWrapper() {
 		return new TransactionWrapper();
@@ -105,4 +128,25 @@ public class PartnerController {
 		model.addAttribute("transactions", transactions);
 		return "transactions";
 	}
+	
+	@RequestMapping("/addOffer")
+	public String addOffer(Model model, @ModelAttribute("offer") PartnerAd offer) {
+		return "addOfferForm";
+	}
+	
+	@ModelAttribute("offer")
+	public PartnerAd populateFormOffer() {
+		return new PartnerAd();
+	}
+	
+	@RequestMapping("/processAddOffer")
+	public String processAddOffer(Model model, @ModelAttribute("offer") PartnerAd offer,@ModelAttribute("user") Partner part) {
+		
+		partnerAdServ.save(offer, part);
+		part = partnerService.findById(part.getId());
+		model.addAttribute("addOfferStatus", "Offre ajoutée avec succès");
+		model.addAttribute("user", part);
+		return "offers";
+	}
+	
 }
