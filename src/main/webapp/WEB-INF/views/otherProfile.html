@@ -15,6 +15,21 @@
 							<img class="profilePicture"
 							th:src="${otherUser.profilePicture}"></img>
 						
+						<div th:if="${otherUser.getClass().getSimpleName() == 'Partner'}">
+						
+													<p>
+							Organisation : <span th:text="${otherUser.organizationName}"></span>
+						</p>
+												<p>
+							Description : <span th:text="${otherUser.organizationDescription}"></span>
+						</p>
+						
+						<p>
+							Numéro TVA : <span th:text="${otherUser.vatNumber}"></span>
+						</p>
+						
+						</div>
+						
 					</div>
 
 				</div>

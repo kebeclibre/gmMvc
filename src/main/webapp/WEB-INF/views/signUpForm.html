@@ -4,7 +4,7 @@
 	<div class="col-md-12">
 		<div class="jumbotron">
 			<div class="container">
-
+				<p th:text="${alreadyUsed}"></p>
 				<h3>Inscrivez Vous</h3>
 				<form th:action="@{/generic/registerUser}" th:object="${genericClient}"
 					method="post">

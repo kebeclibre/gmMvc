@@ -30,7 +30,16 @@
 							</div>
 						</div>
 						<div sec:authorize="hasRole('ROLE_PARTNER')">
-							
+								<p>
+							Organisation : <span th:text="${session.user.organizationName}"></span>
+						</p>
+												<p>
+							Description : <span th:text="${session.user.organizationDescription}"></span>
+						</p>
+						
+						<p>
+							Numéro TVA : <span th:text="${session.user.vatNumber}"></span>
+						</p>
 						
 						</div>
 					</div>

@@ -1,0 +1,27 @@
+<div layout:decorator="masterPages/masterIncludes"
+	layout:fragment="content">
+	<div class="col-md-12">
+		<div class="jumbotron">
+			<div class="loopOfferContainer" >
+				
+					<div class="pull-sm-left offerContainer" th:each="item : ${allPartners}">
+						<p>
+							<a th:text="${item.username}" th:href="@{/generic/viewProfile(partnerId=${item.id})}"></a>
+						</p>
+
+						<p>
+							Organisation : <span th:text="${item.organizationName}"></span>
+						</p>
+												<p>
+							Description : <span th:text="${item.organizationDescription}"></span>
+						</p>
+
+
+					</div>
+				
+
+
+			</div>
+		</div>
+	</div>
+</div>

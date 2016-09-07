@@ -95,6 +95,15 @@ public class GenericUserController {
 			System.out.println("======================= IL Y A EU UNE ERREUR DE VALIDATION ======");
 			return "signUpForm";
 		} else {
+			
+			Client checking = serviceClient.findByUsername(client.getUsername());
+			if (checking != null) {
+				model.addAttribute("saveSucceed",false);
+				model.addAttribute("alreadyUsed","L'utilisateur existe déjà");
+				model.addAttribute("genericClient",new Client());
+				return "signUpForm";				
+			}
+			
 			serviceClient.save(client);
 			model.addAttribute("genericClient",client);
 			model.addAttribute("saveSucceed",true);
@@ -114,7 +123,6 @@ public class GenericUserController {
 	@ResponseBody
 	@RequestMapping(value = "/getUsernames",method = RequestMethod.GET)
 	public String getUsernames(Model model, @RequestParam("partialName") String partialUname) {
-		System.out.println("CALL LIKE OK");
 		return serviceClient.getUsernamesLike(partialUname);
 		
 	}
@@ -143,12 +151,38 @@ public class GenericUserController {
 			//System.out.println("======================= IL Y A EU UNE ERREUR DE VALIDATION ======");
 		//	return "signUpForm";
 		//} else {
+		
+			Partner checking = partnerService.findByUsername(part.getUsername());
+			if (checking != null) {
+				model.addAttribute("saveSucceed",false);
+				model.addAttribute("alreadyUsed","L'utilisateur existe déjà");
+				model.addAttribute("genericClient",new Client());
+				return "signUpForm";
+				
+			}
 			partnerService.save(part);
 			model.addAttribute("genericClient",part);
 			model.addAttribute("saveSucceed",true);
 			model.addAttribute("pageTitle", "GoingMobile : Votre compte a été créé");
 			return "home";
 		
+	}
+	
+	@RequestMapping("/viewProfile")
+	public String viewProfile(Model model, @RequestParam("partnerId") int partId) {
+		Partner part = partnerService.findById(partId);
+		model.addAttribute("otherUser",part);
+		return "otherProfile";
+	}
+	
+	
+	@RequestMapping("/viewAllPartners")
+	public String viewAllPartners(Model model) {
+		
+		List<Partner> list = partnerService.getAllPartners();
+		
+		model.addAttribute("allPartners", list);
+		return "globalPartners";
 	}
 	
 }

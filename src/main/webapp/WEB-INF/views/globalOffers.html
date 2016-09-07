@@ -6,7 +6,7 @@
 				
 					<div class="pull-sm-left offerContainer" th:each="item : ${allOffer}">
 						<p>
-							Annonceur : <span th:text="${item.partners.username}"></span>
+							Annonceur : <a th:text="${item.partners.username}" th:href="@{/generic/viewProfile(partnerId=${item.partners.id})}"></a>
 						</p>
 
 						<p>
