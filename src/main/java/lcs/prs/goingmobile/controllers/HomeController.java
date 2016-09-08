@@ -1,13 +1,18 @@
 package lcs.prs.goingmobile.controllers;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Locale;
 import java.util.TreeSet;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,14 +32,18 @@ import lcs.prs.goingmobile.entities.Client;
 import lcs.prs.goingmobile.entities.Partner;
 import lcs.prs.goingmobile.interfaces.UserInterface;
 import lcs.prs.goingmobile.services.interfaces.ClientServiceIFace;
+import lcs.prs.goingmobile.services.interfaces.IpAddressServiceIFace;
 import lcs.prs.goingmobile.services.interfaces.PartnerServiceIface;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
-@SessionAttributes({ "omega","user"})
+@SessionAttributes({ "omega","user","servAddress"})
 public class HomeController {
+	
+	@Autowired
+	IpAddressServiceIFace ipAddrServ;
 
 	@Autowired
 	private ServletContext servletContext;
@@ -75,7 +84,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model, HttpServletRequest req) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		Date date = new Date();
@@ -87,6 +96,10 @@ public class HomeController {
 		model.addAttribute("pageTitle", "GoingMobile: Traversez la ville naturellement.");
 
 		model.addAttribute("omega", "Cycliste");
+		
+		model.addAttribute("servAddress",ipAddrServ.showList()+":"+req.getServerPort()+req.getContextPath());
+		
+		
 		return "home";
 	}
 
